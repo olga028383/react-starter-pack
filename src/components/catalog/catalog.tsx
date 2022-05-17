@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
+import {useParams} from 'react-router-dom';
 import Filters from '../filters/filters';
 import Sort from '../sort/sort';
 import Pagination from '../pagination/pagination';
@@ -11,7 +12,11 @@ import {getGuitarsForCurrentPage, getTotalPages} from '../../store/data/selector
 import GuitarCard from '../guitar-card/guitar-card';
 import {Guitar} from '../../types/guitar';
 import {getCurrentPage} from '../../store/application/selectors';
-import {SHOW_PAGE} from '../../constants/constants';
+import {AppRoute, SHOW_PAGE, Title} from '../../constants/constants';
+import {QueryPageTypes} from '../../types/params';
+import NotFound from '../not-found/not-found';
+import {getPagesCount} from '../../utils/utils';
+import PageTitle from '../page-title/page-title';
 
 const mapStateToProps = (state: State) => ({
   guitars: getGuitarsForCurrentPage(state),
@@ -26,14 +31,30 @@ type catalogTypeProps = {
 }
 
 function Catalog({guitars, pagesTotal, currentPage}: catalogTypeProps): JSX.Element {
+  const params = useParams<QueryPageTypes>();
+  const [pageError, setPageError] = useState(false);
+  const breadcrumbs = [{to: AppRoute.CATALOG, text: Title.CATALOG}];
+
+  useEffect(() => {
+    const id = Number(params.id);
+    if (Object.keys(params).length > 0 && (isNaN(id) || (id > getPagesCount(pagesTotal)))) {
+      setPageError(true);
+    }
+  }, [params.id]);
+
+  if(pageError){
+    return <NotFound />;
+  }
+
   return (
     <>
       <Header/>
       <main className='page-content'>
         <div className='container'>
-          <h1 className='page-content__title title title--bigger'>Каталог гитар</h1>
 
-          <Breadcrumbs/>
+          <PageTitle text='Каталог товаров'/>
+
+          <Breadcrumbs links={breadcrumbs}/>
 
           <div className='catalog'>
             <Filters/>

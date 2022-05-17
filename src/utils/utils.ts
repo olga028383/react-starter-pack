@@ -1,4 +1,4 @@
-import {LANGUAGE} from '../constants/constants';
+import {LANGUAGE, SHOW_PAGE} from '../constants/constants';
 
 export const replaceImagePath = (src: string): string => {
   const Paths = {
@@ -9,4 +9,13 @@ export const replaceImagePath = (src: string): string => {
   return `/${src.replace(Paths.Server, Paths.Local)}`;
 };
 
-export const formatPrice = (price: number): string => `${price.toLocaleString(LANGUAGE)} P`;
+export const formatPrice = (price: number): string => `${price.toLocaleString(LANGUAGE)} ₽`;
+
+export const getPagesCount = (countProducts: number): number => Math.ceil(countProducts / SHOW_PAGE);
+
+export const getAdaptedValue = (name: string, data: any): string => {
+  if(data === ''){
+    return '';
+  }
+  return data.has(name) ? data.get(name) : '';
+};

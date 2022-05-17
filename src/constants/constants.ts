@@ -4,14 +4,18 @@ export const ApiRoute = {
 
 export const AppRoute = {
   CATALOG: '/catalog',
-  CATALOG_PAGE: '/catalog/:page',
+  CATALOG_PAGE: '/catalog/page/:id',
+  CATALOG_DETAIL: '/catalog/:id',
   ROOT: '/',
+};
+
+export const Title = {
+  CATALOG: 'Каталог',
 };
 
 export const SHOW_PAGE = 9;
 
-export const OFFSET_PAGE = 1;
+export const OFFSET_ONE = 1;
 
 export const LANGUAGE = 'ru';
 
-export const PAGE_QUERY_SEPARATOR = '_';

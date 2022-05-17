@@ -1,14 +1,16 @@
 import React from 'react';
+import BreadcrumbsLink from './breadcrumbs-link/breadcrumbs-link';
 
-function Breadcrumbs(): JSX.Element {
+type Link = {
+  to: string,
+  text: string,
+};
+
+function Breadcrumbs({links}: any): JSX.Element {
   return (
     <ul className="breadcrumbs page-content__breadcrumbs">
-      <li className="breadcrumbs__item">
-        <a className="link" href="./main.html">Главная</a>
-      </li>
-      <li className="breadcrumbs__item">
-        <a className="link">Каталог</a>
-      </li>
+      <BreadcrumbsLink link='/' text='Главная'/>
+      {links.map((link: Link) => (<BreadcrumbsLink key={link.to} link={link.to} text={link.text}/>))}
     </ul>
   );
 }

@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-import {useParams, Link} from 'react-router-dom';
+import {useParams, Link, useHistory} from 'react-router-dom';
 import {AppDispatch, State} from '../../types/state';
-import {AppRoute, OFFSET_PAGE, PAGE_QUERY_SEPARATOR, SHOW_PAGE} from '../../constants/constants';
+import {AppRoute, OFFSET_ONE} from '../../constants/constants';
 import {getGuitars} from '../../store/data/selectors';
 import {setCurrentPage} from '../../store/action';
+import {QueryPageTypes} from '../../types/params';
+import {getPagesCount} from '../../utils/utils';
 
 const FIRST_PAGE = 1;
 
@@ -23,29 +25,28 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   },
 });
 
-const createPathLink = (link: number): string => link !== FIRST_PAGE ? `${AppRoute.CATALOG}/page_${link}` : AppRoute.CATALOG;
-
-type QueryPageTypes = {
-  page: string;
-};
+const createPathLink = (link: number): string => link !== FIRST_PAGE ? `${AppRoute.CATALOG}/page/${link}` : AppRoute.CATALOG;
 
 function Pagination({guitars, currentPage, onSetCurrentPage}: any): JSX.Element {
   const guitarCount = guitars.length;
-  const pagesCount = Math.ceil(guitarCount / SHOW_PAGE);
-  const links = new Array(pagesCount).fill(null).map((item, id) => id + OFFSET_PAGE);
+  const pagesCount = getPagesCount(guitarCount);
+  const links = new Array(pagesCount).fill(null).map((item, id) => id + OFFSET_ONE);
   const firstPage = FIRST_PAGE === currentPage;
   const lastPage = pagesCount === currentPage;
   const params = useParams<QueryPageTypes>();
+  const history = useHistory();
 
   useEffect(() => {
-    if (params.page) {
-      const [, pageNum] = params.page.split(PAGE_QUERY_SEPARATOR);
+    if (params.id) {
+      const pageNum = Number(params.id);
 
-      if (Number(pageNum) > FIRST_PAGE) {
-        onSetCurrentPage(Number(pageNum));
+      if (pageNum > FIRST_PAGE) {
+        onSetCurrentPage(pageNum);
       }
+
     }
-  }, [params.page]);
+
+  }, [params.id]);
 
   const handleButtonClick = (evt: any): void => {
     evt.preventDefault();
@@ -61,6 +62,8 @@ function Pagination({guitars, currentPage, onSetCurrentPage}: any): JSX.Element 
           break;
       }
     }
+
+    history.push(createPathLink(currentPage));
   };
 
   return (

@@ -9,6 +9,7 @@ import Loading from '../loading/loading';
 import {AppRoute} from '../../constants/constants';
 import {State} from '../../types/state';
 import {getServerError} from '../../store/application/selectors';
+import GuitarDetail from '../guitar-detail/guitar-detail';
 
 const mapStateToProps = (state: State) => ({
   isDataLoaded: getIsLoadData(state),
@@ -21,7 +22,7 @@ type appActionType = {
 }
 
 function App({isDataLoaded, serverError}: appActionType): JSX.Element {
-  if(serverError){
+  if (serverError) {
     return (
       <Error textError={serverError}/>
     );
@@ -36,10 +37,13 @@ function App({isDataLoaded, serverError}: appActionType): JSX.Element {
   return (
     <Switch>
       <Route exact path={AppRoute.CATALOG}>
-        <Catalog />
+        <Catalog/>
       </Route>
       <Route path={AppRoute.CATALOG_PAGE}>
-        <Catalog />
+        <Catalog/>
+      </Route>
+      <Route path={AppRoute.CATALOG_DETAIL}>
+        <GuitarDetail/>
       </Route>
       <Route>
         <NotFound/>
