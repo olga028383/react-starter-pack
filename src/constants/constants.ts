@@ -6,6 +6,7 @@ export const AppRoute = {
   CATALOG: '/catalog',
   CATALOG_PAGE: '/catalog/page/:id',
   CATALOG_DETAIL: '/catalog/:id',
+  CATALOG_DETAIL_TAB: '/catalog/:id/:tab',
   ROOT: '/',
 };
 

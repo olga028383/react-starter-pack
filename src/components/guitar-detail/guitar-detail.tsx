@@ -11,10 +11,10 @@ import {QueryPageTypes} from '../../types/params';
 import {Guitar} from '../../types/guitar';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import {AppRoute, Title} from '../../constants/constants';
-import {GuitarType} from '../../constants/adapters';
 import PageTitle from '../page-title/page-title';
-import {formatPrice, getAdaptedValue, replaceImagePath} from '../../utils/utils';
+import {formatPrice, replaceImagePath} from '../../utils/utils';
 import Rating from '../rating/rating';
+import Tabs from '../tabs/tabs';
 
 
 const mapStateToProps = (state: State) => ({
@@ -58,7 +58,7 @@ function GuitarDetail({guitars}: guitarDetailTypeProps): JSX.Element {
     );
   }
 
-  const {name, previewImg, stringCount, vendorCode, description, price, type, rating} = data as Guitar;
+  const {name, previewImg, price, rating} = data as Guitar;
   const imageFormatted = replaceImagePath(previewImg);
   const breadcrumbs = [{to: AppRoute.CATALOG, text: Title.CATALOG}, {to: '#', text: name}];
 
@@ -80,26 +80,7 @@ function GuitarDetail({guitars}: guitarDetailTypeProps): JSX.Element {
 
               <Rating rate={rating} widthIcon='14' heightIcon='14'/>
 
-              <div className="tabs">
-                <a className="button button--medium tabs__button" href="#characteristics">Характеристики</a><a className="button button--black-border button--medium tabs__button" href="#description">Описание</a>
-                <div className="tabs__content" id="characteristics">
-                  <table className="tabs__table">
-                    <tr className="tabs__table-row">
-                      <td className="tabs__title">Артикул:</td>
-                      <td className="tabs__value">{vendorCode}</td>
-                    </tr>
-                    <tr className="tabs__table-row">
-                      <td className="tabs__title">Тип:</td>
-                      <td className="tabs__value">{getAdaptedValue(type, GuitarType)}</td>
-                    </tr>
-                    <tr className="tabs__table-row">
-                      <td className="tabs__title">Количество струн:</td>
-                      <td className="tabs__value">{stringCount} струнная</td>
-                    </tr>
-                  </table>
-                  <p className="tabs__product-description hidden">{description}</p>
-                </div>
-              </div>
+              <Tabs content={data as Guitar}/>
             </div>
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>
