@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import TabItem from './tab-item/tab-item';
 import Characteristics from './characteristics/characteristics';
 import Description from './description/description';
-import {Guitar} from '../../types/guitar';
+import {Guitar} from '../../types/data';
 import {useParams} from 'react-router';
 import {QueryPageTypes} from '../../types/params';
 import {AppRoute} from '../../constants/constants';

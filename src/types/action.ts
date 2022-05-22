@@ -1,15 +1,9 @@
 import {ActionType} from '../store/action';
-import {Guitar} from './guitar';
-import {AxiosInstance} from 'axios';
+import {Guitar} from './data';
 
 export type guitarsActionType = {
   type: typeof ActionType.LOAD_GUITARS,
   payload: Guitar[],
-};
-
-export type apiActionType = {
-  type: typeof ActionType.GET_API,
-  payload: AxiosInstance,
 };
 
 export type currentPageActionType = {

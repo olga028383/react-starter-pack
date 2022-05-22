@@ -1,5 +1,5 @@
 import {NameSpace} from '../reducer';
-import {Guitar} from '../../types/guitar';
+import {Guitar} from '../../types/data';
 import {OFFSET_ONE, SHOW_PAGE} from '../../constants/constants';
 
 export const getIsLoadData = (state: any): boolean => state[NameSpace.DATA].isDataLoaded;

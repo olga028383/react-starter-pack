@@ -1,5 +1,5 @@
 import {store} from '../index';
-import {Guitar} from './guitar';
+import {Guitar} from './data';
 
 export type dataState = {
   guitars: Guitar[],
@@ -7,7 +7,6 @@ export type dataState = {
 };
 
 export type applicationState = {
-  api: {},
   serverError: string,
   currentPage: number,
 };

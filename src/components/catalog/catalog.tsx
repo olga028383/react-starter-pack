@@ -10,7 +10,7 @@ import Footer from '../footer/footer';
 import {State} from '../../types/state';
 import {getGuitarsForCurrentPage, getTotalPages} from '../../store/data/selectors';
 import GuitarCard from '../guitar-card/guitar-card';
-import {Guitar} from '../../types/guitar';
+import {Guitar} from '../../types/data';
 import {getCurrentPage} from '../../store/application/selectors';
 import {AppRoute, SHOW_PAGE, Title} from '../../constants/constants';
 import {QueryPageTypes} from '../../types/params';

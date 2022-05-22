@@ -8,7 +8,6 @@ import browserHistory from './browser-history';
 import {createApi} from './api';
 import reducer from './store/reducer';
 import thunk from 'redux-thunk';
-import {setApi} from './store/action';
 import {fetchGuitars} from './store/api-actions';
 import App from './components/app/app';
 
@@ -18,7 +17,6 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
 );
 
-store.dispatch(setApi(api));
 store.dispatch(fetchGuitars());
 
 ReactDOM.render(
@@ -31,4 +29,4 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'));
 
-export {store};
+export {store, api};

@@ -1,5 +1,6 @@
 export const ApiRoute = {
   Guitars: '/guitars',
+  Comments: 'comments',
 };
 
 export const AppRoute = {

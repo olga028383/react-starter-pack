@@ -1,5 +1,5 @@
 import React from 'react';
-import {Guitar} from '../../../types/guitar';
+import {Guitar} from '../../../types/data';
 
 function Description({guitar}: { guitar: Guitar }): JSX.Element {
   const {description} = guitar;

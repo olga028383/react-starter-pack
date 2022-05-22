@@ -1,7 +1,7 @@
 import React from 'react';
 import {GuitarType} from '../../../constants/adapters';
 import {getAdaptedValue} from '../../../utils/utils';
-import {Guitar} from '../../../types/guitar';
+import {Guitar} from '../../../types/data';
 
 
 function Characteristics({guitar}: { guitar: Guitar }): JSX.Element {
