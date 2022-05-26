@@ -1,5 +1,7 @@
 import React from 'react';
 import {OFFSET_ONE} from '../../constants/constants';
+import {RatingName} from '../../constants/adapters';
+import {getAdaptedValue} from '../../utils/utils';
 
 const MAX_RATING = 5;
 
@@ -23,7 +25,7 @@ type RatingType = {
   comments?: number,
 }
 
-function Rating({rate, widthIcon, heightIcon, comments = 7}: RatingType): JSX.Element {
+function Rating({rate, widthIcon, heightIcon, comments}: RatingType): JSX.Element {
   return (
     <div className="rate product-container__rating">
       {createDataRate(rate).map((item, id) => {
@@ -33,7 +35,7 @@ function Rating({rate, widthIcon, heightIcon, comments = 7}: RatingType): JSX.El
             <use xlinkHref={`#${item}`}></use>
           </svg>);
       })}
-      <p className="visually-hidden">Рейтинг: Хорошо</p>
+      <p className="visually-hidden">Рейтинг: {getAdaptedValue(`${Math.ceil(rate)}`, RatingName)}</p>
       <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{comments}</p>
     </div>
   );

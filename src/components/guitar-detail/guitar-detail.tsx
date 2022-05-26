@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getGuitars} from '../../store/data/selectors';
+import {useParams} from 'react-router-dom';
 import Loading from '../loading/loading';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import NotFound from '../not-found/not-found';
-import {State} from '../../types/state';
 import {QueryPageTypes} from '../../types/params';
 import {Guitar} from '../../types/data';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
@@ -16,33 +14,38 @@ import {formatPrice, replaceImagePath} from '../../utils/utils';
 import Rating from '../rating/rating';
 import Tabs from '../tabs/tabs';
 import Reviews from '../reviews/reviews';
+import {fetchGuitar} from '../../store/api-actions';
+import {AxiosInstance} from 'axios';
+import {getApi} from '../../store/application/selectors';
+import {State} from '../../types/state';
 
 const mapStateToProps = (state: State) => ({
-  guitars: getGuitars(state),
+  api: getApi(state),
 });
 
-
-type guitarDetailTypeProps = {
-  guitars?: any,
+type GuitarDetailType = {
+  api?: AxiosInstance
 }
 
-function GuitarDetail({guitars}: guitarDetailTypeProps): JSX.Element {
+function GuitarDetail({api}: GuitarDetailType): JSX.Element {
   const params = useParams<QueryPageTypes>();
   const [data, setData] = useState({});
+  const [countReview, setCountReview] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
-    const id = Number(params.id);
-    const page = guitars.filter((guitar: Guitar) => guitar.id === id);
 
-    if (page[0]) {
-      setData(page[0]);
-      setIsLoading(false);
-    } else {
-      setIsNotFound(true);
-      setIsLoading(false);
-    }
+    fetchGuitar(params.id, api as AxiosInstance)
+      .then((guitar) => {
+        setData(guitar);
+        setCountReview(Number(guitar.comments.length));
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsNotFound(true);
+        setIsLoading(false);
+      });
 
   }, [params.id]);
 
@@ -63,6 +66,10 @@ function GuitarDetail({guitars}: guitarDetailTypeProps): JSX.Element {
   const imageFormatted = replaceImagePath(previewImg);
   const breadcrumbs = [{to: AppRoute.CATALOG, text: Title.CATALOG}, {to: '#', text: name}];
 
+  const handleSetReviewCount = (countComments: string) => {
+    setCountReview(Number(countComments));
+  };
+
   return (
     <>
       <Header/>
@@ -79,7 +86,7 @@ function GuitarDetail({guitars}: guitarDetailTypeProps): JSX.Element {
             <div className="product-container__info-wrapper">
               <h2 className="product-container__title title title--big title--uppercase">{name}</h2>
 
-              <Rating rate={rating} widthIcon='14' heightIcon='14'/>
+              <Rating rate={rating} widthIcon='14' heightIcon='14' comments={countReview}/>
 
               <Tabs content={data as Guitar}/>
             </div>
@@ -90,7 +97,7 @@ function GuitarDetail({guitars}: guitarDetailTypeProps): JSX.Element {
             </div>
           </div>
 
-          <Reviews guitar={data as Guitar}/>
+          <Reviews guitar={data as Guitar} handleSetReviewCount={handleSetReviewCount}/>
 
         </div>
       </main>

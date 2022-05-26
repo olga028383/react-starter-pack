@@ -1,12 +1,15 @@
 import React, {useEffect} from 'react';
 
-function ReviewSuccess({currentModalActive, setCurrentModalActive, setFormReviewModal}: {currentModalActive: boolean, setCurrentModalActive: any, setFormReviewModal: any }): JSX.Element {
+type ReviewSuccessType = {
+  setCurrentModalActive: any,
+  setFormReviewModal: any
+}
+
+function ReviewSuccess({setCurrentModalActive, setFormReviewModal}: ReviewSuccessType): JSX.Element {
 
   useEffect(() => {
-    if(currentModalActive) {
-      setFormReviewModal(false);
-    }
-  }, [currentModalActive]);
+    setFormReviewModal(false);
+  }, []);
 
   return (
     <>
@@ -15,7 +18,7 @@ function ReviewSuccess({currentModalActive, setCurrentModalActive, setFormReview
       </svg>
       <p className="modal__message">Спасибо за ваш отзыв!</p>
       <div className="modal__button-container modal__button-container--review">
-        <button className="button button--small modal__button modal__button--review" onClick={()=>{setCurrentModalActive(false);}}>К покупкам!</button>
+        <button className="button button--small modal__button modal__button--review" onClick={() => {setCurrentModalActive(false);}}>К покупкам!</button>
       </div>
       <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть">
         <span className="button-cross__icon"></span>

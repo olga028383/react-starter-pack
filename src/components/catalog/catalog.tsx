@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {useParams} from 'react-router-dom';
+import {nanoid} from 'nanoid';
 import Filters from '../filters/filters';
 import Sort from '../sort/sort';
 import Pagination from '../pagination/pagination';
@@ -8,36 +9,33 @@ import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import {State} from '../../types/state';
-import {getGuitarsForCurrentPage, getTotalPages} from '../../store/data/selectors';
+import {getGuitars} from '../../store/data/selectors';
 import GuitarCard from '../guitar-card/guitar-card';
 import {Guitar} from '../../types/data';
-import {getCurrentPage} from '../../store/application/selectors';
-import {AppRoute, SHOW_PAGE, Title} from '../../constants/constants';
+import {getTotalPages} from '../../store/application/selectors';
+import {AppRoute, Title} from '../../constants/constants';
 import {QueryPageTypes} from '../../types/params';
 import NotFound from '../not-found/not-found';
-import {getPagesCount} from '../../utils/utils';
 import PageTitle from '../page-title/page-title';
 
 const mapStateToProps = (state: State) => ({
-  guitars: getGuitarsForCurrentPage(state),
+  guitars: getGuitars(state),
   pagesTotal: getTotalPages(state),
-  currentPage: getCurrentPage(state),
 });
 
 type catalogTypeProps = {
   guitars?: any,
   pagesTotal?: any,
-  currentPage?: number,
 }
 
-function Catalog({guitars, pagesTotal, currentPage}: catalogTypeProps): JSX.Element {
+function Catalog({guitars, pagesTotal}: catalogTypeProps): JSX.Element {
   const params = useParams<QueryPageTypes>();
   const [pageError, setPageError] = useState(false);
   const breadcrumbs = [{to: AppRoute.CATALOG, text: Title.CATALOG}];
 
   useEffect(() => {
     const id = Number(params.id);
-    if (Object.keys(params).length > 0 && (isNaN(id) || (id > getPagesCount(pagesTotal)))) {
+    if (Object.keys(params).length > 0 && (isNaN(id) || (id > pagesTotal))) {
       setPageError(true);
     }
   }, [params.id]);
@@ -62,12 +60,12 @@ function Catalog({guitars, pagesTotal, currentPage}: catalogTypeProps): JSX.Elem
 
             <div className='cards catalog__cards'>
               {(guitars as Guitar[]).map((guitar) => {
-                const keyValue = `${guitar.id}-${guitar.previewImg}`;
+                const keyValue = `${nanoid()}-guitar`;
                 return (<GuitarCard key={keyValue} guitar={guitar}/>);
               })}
             </div>
 
-            {pagesTotal > SHOW_PAGE && <Pagination currentPage={currentPage}/>}
+            {pagesTotal > 0 && <Pagination/>}
 
           </div>
         </div>

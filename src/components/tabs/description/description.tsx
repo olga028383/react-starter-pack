@@ -1,7 +1,11 @@
 import React from 'react';
 import {Guitar} from '../../../types/data';
 
-function Description({guitar}: { guitar: Guitar }): JSX.Element {
+type DescriptionType = {
+  guitar: Guitar
+}
+
+function Description({guitar}: DescriptionType): JSX.Element {
   const {description} = guitar;
   return (
     <p className="tabs__product-description">{description}</p>

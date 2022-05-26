@@ -3,14 +3,18 @@ import BreadcrumbsLink from './breadcrumbs-link/breadcrumbs-link';
 
 type Link = {
   to: string,
-  text: string,
+  text: string
+}
+
+type BreadcrumbsType = {
+  links: Link[],
 };
 
-function Breadcrumbs({links}: any): JSX.Element {
+function Breadcrumbs({links}: BreadcrumbsType): JSX.Element {
   return (
     <ul className="breadcrumbs page-content__breadcrumbs">
       <BreadcrumbsLink link='/' text='Главная'/>
-      {links.map((link: Link) => (<BreadcrumbsLink key={link.to} link={link.to} text={link.text}/>))}
+      {links.map((link) => (<BreadcrumbsLink key={link.to} link={link.to} text={link.text}/>))}
     </ul>
   );
 }

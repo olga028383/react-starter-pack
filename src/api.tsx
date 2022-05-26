@@ -3,7 +3,7 @@ import axios, {AxiosInstance} from 'axios';
 const BACKEND_URL = 'https://guitar-shop.accelerator.pages.academy';
 const TIMEOUT = 5000;
 
-const createApi = (): AxiosInstance => {
+export const createApi = (): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: TIMEOUT,
@@ -20,5 +20,4 @@ const createApi = (): AxiosInstance => {
   return api;
 };
 
-export {createApi};
 

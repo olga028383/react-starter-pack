@@ -10,14 +10,17 @@ import reducer from './store/reducer';
 import thunk from 'redux-thunk';
 import {fetchGuitars} from './store/api-actions';
 import App from './components/app/app';
+import {setApi} from './store/action';
 
+const ONE_PAGE = 1;
 const api = createApi();
 const store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
 );
 
-store.dispatch(fetchGuitars());
+store.dispatch(setApi(api));
+store.dispatch(fetchGuitars(ONE_PAGE));
 
 ReactDOM.render(
   <React.StrictMode>
@@ -29,4 +32,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'));
 
-export {store, api};
+
+export {store};

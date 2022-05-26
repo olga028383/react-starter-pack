@@ -7,6 +7,7 @@ import Rating from '../rating/rating';
 type typePropsGuitarCart = {
   guitar?: any,
 }
+
 function GuitarCard({guitar}: typePropsGuitarCart ): JSX.Element {
   const {id, name, previewImg, price, rating}: Guitar = guitar;
   const imageFormatted = replaceImagePath(previewImg);
@@ -15,7 +16,7 @@ function GuitarCard({guitar}: typePropsGuitarCart ): JSX.Element {
       <img src={imageFormatted} srcSet={`${imageFormatted}@2x.jpg 2x`} width="75" height="190" alt={name}/>
       <div className="product-card__info">
 
-        <Rating rate={rating} widthIcon='12' heightIcon='11' />
+        <Rating rate={rating} widthIcon='12' heightIcon='11' comments={guitar.comments.length}/>
 
         <p className="product-card__title">{name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{formatPrice(price)}

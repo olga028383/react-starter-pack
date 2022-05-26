@@ -2,8 +2,14 @@ import React, {useEffect} from 'react';
 import {RemoveScroll} from 'react-remove-scroll';
 import FocusLock from 'react-focus-lock';
 
+type ModalType = {
+  active: boolean,
+  setActive: any,
+  children: JSX.Element,
+  additionalClass: string
+}
 
-function Modal({active, setActive, children, additionalClass}: { active: boolean, setActive: any, children: JSX.Element, additionalClass: string }): JSX.Element | null {
+function Modal({active, setActive, children, additionalClass}: ModalType): JSX.Element | null {
   const handleCloseModalClick = (evt: any) => {
     evt.preventDefault();
     setActive(false);
@@ -33,7 +39,7 @@ function Modal({active, setActive, children, additionalClass}: { active: boolean
       <FocusLock>
         <div className={`is-active modal ${additionalClass} modal-for-ui-kit`}>
           <div className="modal__wrapper">
-            <div className="modal__overlay" data-close-modal onClick={handleCloseModalClick}></div>
+            <div className="modal__overlay" data-close-modal data-testid="close" onClick={handleCloseModalClick}></div>
             <div className="modal__content">
               {children}
               <button className="modal__close-btn button-cross" onClick={handleCloseModalClick} type="button" aria-label="Закрыть">

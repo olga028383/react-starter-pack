@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Switch, Route} from 'react-router-dom';
+import {Redirect, Switch, Route} from 'react-router-dom';
 import {getIsLoadData} from '../../store/data/selectors';
 import NotFound from '../not-found/not-found';
 import Error from '../error/error';
@@ -10,6 +10,7 @@ import {AppRoute} from '../../constants/constants';
 import {State} from '../../types/state';
 import {getServerError} from '../../store/application/selectors';
 import GuitarDetail from '../guitar-detail/guitar-detail';
+
 
 const mapStateToProps = (state: State) => ({
   isDataLoaded: getIsLoadData(state),
@@ -36,7 +37,10 @@ function App({isDataLoaded, serverError}: appActionType): JSX.Element {
 
   return (
     <Switch>
-      <Route exact path={[AppRoute.CATALOG, AppRoute.CATALOG_PAGE]}>
+      <Route exact path={AppRoute.ROOT}>
+        <Redirect to={AppRoute.CATALOG}/>
+      </Route>
+      <Route exact path={[AppRoute.CATALOG, AppRoute.CATALOG_PAGE, AppRoute.ROOT]}>
         <Catalog/>
       </Route>
       <Route exact path={[AppRoute.CATALOG_DETAIL, AppRoute.CATALOG_DETAIL_TAB]}>

@@ -3,8 +3,11 @@ import {GuitarType} from '../../../constants/adapters';
 import {getAdaptedValue} from '../../../utils/utils';
 import {Guitar} from '../../../types/data';
 
+type CharacteristicsType = {
+  guitar: Guitar,
+}
 
-function Characteristics({guitar}: { guitar: Guitar }): JSX.Element {
+function Characteristics({guitar}: CharacteristicsType): JSX.Element {
   const {vendorCode, type, stringCount} = guitar;
   return (
     <table className="tabs__table">

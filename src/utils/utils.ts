@@ -9,11 +9,11 @@ export const replaceImagePath = (src: string): string => {
   return `/${src.replace(Paths.Server, Paths.Local)}`;
 };
 
-export const formatPrice = (price: number): string => `${price.toLocaleString(LANGUAGE)} ₽`;
+export const formatPrice = (price: number): string => `${price.toLocaleString(LANGUAGE).replace(',', ' ')} ₽`;
 
 export const getPagesCount = (countProducts: number): number => Math.ceil(countProducts / SHOW_PAGE);
 
-export const getAdaptedValue = (name: string, data: any): string => {
+export const getAdaptedValue = (name: string | number, data: any): string => {
   if(data === ''){
     return '';
   }

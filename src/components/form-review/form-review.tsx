@@ -1,18 +1,12 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import RatingField from './rating-field/rating-field';
 import {sendComment} from '../../store/api-actions';
-import {api} from '../../index';
 import {Guitar, ReviewPost} from '../../types/data';
 import RequiredError from './required-error/required-error';
 import {setServerError} from '../../store/action';
-import {connect} from 'react-redux';
-import {AppDispatch} from '../../types/state';
-
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  handleSetServerError(message: string) {
-    dispatch(setServerError(message));
-  },
-});
+import {AppDispatch, State} from '../../types/state';
+import {getApi} from '../../store/application/selectors';
 
 const COUNT_RATING = 5;
 
@@ -22,6 +16,16 @@ const Field = {
   Disadvantage: 'disadvantage',
   Comment: 'comment',
 };
+
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  handleSetServerError(message: string) {
+    dispatch(setServerError(message));
+  },
+});
+
+const mapStateToProps = (state: State) => ({
+  api: getApi(state),
+});
 
 const getCurrentField = (id: string, value: string): any => {
 
@@ -43,7 +47,15 @@ const getCurrentField = (id: string, value: string): any => {
 
 const checkValidate = (data: ReviewPost): boolean => (!Object.values(data).filter((value) => !value).length);
 
-function FormReview({guitar, setReviewData, handleSetServerError, showSuccessModal}: { guitar: Guitar, setReviewData: any, handleSetServerError?: any, showSuccessModal: any }): JSX.Element {
+type FormReview = {
+  guitar: Guitar,
+  setReviewData: any,
+  handleSetServerError?: any,
+  showSuccessModal: any,
+  api?: any
+}
+
+function FormReview({guitar, setReviewData, handleSetServerError, showSuccessModal, api}: FormReview): JSX.Element {
   const {name, id} = guitar;
   const [error, setError] = useState(false);
 
@@ -135,4 +147,4 @@ function FormReview({guitar, setReviewData, handleSetServerError, showSuccessMod
 }
 
 export {FormReview};
-export default connect(null, mapDispatchToProps)(FormReview);
+export default connect(mapStateToProps, mapDispatchToProps)(FormReview);
