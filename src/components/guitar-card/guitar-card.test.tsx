@@ -21,11 +21,7 @@ describe('Component: GuitarCard', () => {
       APPLICATION: {serverError: '', currentPage: 1},
     });
 
-    render( <Provider store={store}>
-      <Router history={history}>
-        <GuitarCard guitar={Guitar}/>
-      </Router>
-    </Provider>);
+    render( <Provider store={store}><Router history={history}><GuitarCard guitar={Guitar}/></Router></Provider>);
 
     expect(screen.getByText(/Честер Bass/i)).toBeInTheDocument();
     expect(screen.getByText(/17 500/i)).toBeInTheDocument();

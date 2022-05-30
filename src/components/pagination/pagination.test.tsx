@@ -33,13 +33,9 @@ describe('Component: Pagination', () => {
   });
 
   it('should show initial state of pagination', async() => {
-    const {container} = render(fakeApp);
+    render(fakeApp);
 
     expect(screen.getByText(/1/i)).toBeInTheDocument();
-    //expect(container.querySelectorAll('.pagination__page')[0].classList.contains('.pagination__page--active')).toBe(true);
-    //expect(screen.getByText(/2/i)).toBeInTheDocument();
-    // expect(screen.getByText(/3/i)).toBeInTheDocument();
-    // expect(screen.getByText(/Далее/i)).toBeInTheDocument();
   });
 
 });

@@ -18,7 +18,7 @@ describe('Reducer: application', () => {
     expect(application(stateApplicationTest, apiAction))
       .toEqual({
         ...stateApplicationTest,
-        api: 'something'
+        api: 'something',
       });
   });
 

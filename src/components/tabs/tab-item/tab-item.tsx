@@ -11,7 +11,7 @@ type tabItemType = {
 function TabItem({title, url, currentTab, handleTabClick}: tabItemType): JSX.Element {
   const notActiveTab = (currentTab !== title) ? 'button button--black-border' : '';
   return (
-    <Link className={`button button--medium tabs__button ${notActiveTab}`} to={`${url}`} onClick={handleTabClick}>{title}</Link>
+    <Link className={`button button--medium tabs__button ${notActiveTab}`} data-testid='tab-item' to={`${url}`} onClick={handleTabClick}>{title}</Link>
   );
 }
 

@@ -1,6 +1,6 @@
 import {data} from './data';
 import {ActionType} from '../action';
-import {Guitar} from "../../mock/test";
+import {Guitar} from '../../mock/test';
 
 describe('Reducer: data', () => {
 

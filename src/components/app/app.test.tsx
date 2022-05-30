@@ -6,8 +6,8 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import App from './app';
 import {AppRoute} from '../../constants/constants';
-import {Guitar, ReviewTest} from '../../mock/test';
-import {fetchGuitar, fetchComments} from '../../store/api-actions';
+import {Guitar} from '../../mock/test';
+import {fetchGuitar} from '../../store/api-actions';
 
 jest.mock('../../store/api-actions');
 jest.mock('../reviews/reviews', () => {
@@ -22,7 +22,6 @@ jest.mock('../reviews/reviews', () => {
 });
 
 const mockFetchGuitar = fetchGuitar as jest.MockedFunction<typeof fetchGuitar>;
-const mockFetchComments = fetchComments as jest.MockedFunction<typeof fetchComments>;
 
 let history = null;
 let store = null;

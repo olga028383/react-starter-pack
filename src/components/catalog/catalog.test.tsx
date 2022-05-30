@@ -21,11 +21,7 @@ describe('Component: GuitarCard', () => {
       APPLICATION: {serverError: '', currentPage: 1, pagesTotal: 27},
     });
 
-    render(<Provider store={store}>
-      <Router history={history}>
-        <Catalog/>
-      </Router>
-    </Provider>);
+    render(<Provider store={store}><Router history={history}><Catalog/></Router></Provider>);
 
     screen.getAllByText(/Честер Bass/i).forEach((item) => {
       expect(item).toBeInTheDocument();

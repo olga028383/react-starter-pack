@@ -31,7 +31,7 @@ function Rating({rate, widthIcon, heightIcon, comments}: RatingType): JSX.Elemen
       {createDataRate(rate).map((item, id) => {
         const keyValue = `${item}-${id}`;
         return (
-          <svg key={keyValue} width={widthIcon} height={heightIcon} aria-hidden="true">
+          <svg key={keyValue} width={widthIcon} height={heightIcon} aria-hidden="true" data-testid={item}>
             <use xlinkHref={`#${item}`}></use>
           </svg>);
       })}

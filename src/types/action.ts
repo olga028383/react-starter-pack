@@ -1,6 +1,6 @@
 import {ActionType} from '../store/action';
 import {Guitar} from './data';
-import {AxiosInstance} from "axios";
+import {AxiosInstance} from 'axios';
 
 export type guitarsActionType = {
   type: typeof ActionType.LOAD_GUITARS,

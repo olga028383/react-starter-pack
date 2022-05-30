@@ -16,7 +16,7 @@ describe('Actions', () => {
 
     const expectedAction = {
       type: ActionType.LOAD_GUITARS,
-      payload: [Guitar]
+      payload: [Guitar],
     };
 
     expect(loadGuitars([Guitar])).toEqual(expectedAction);
@@ -35,7 +35,7 @@ describe('Actions', () => {
 
     const expectedAction = {
       type: ActionType.SET_CURRENT_PAGE,
-      payload: 1
+      payload: 1,
     };
 
     expect(setCurrentPage(1)).toEqual(expectedAction);
@@ -45,7 +45,7 @@ describe('Actions', () => {
 
     const expectedAction = {
       type: ActionType.SET_TOTAL_PAGES,
-      payload: 30
+      payload: 30,
     };
 
     expect(setTotalPages(30)).toEqual(expectedAction);
@@ -55,7 +55,7 @@ describe('Actions', () => {
 
     const expectedAction = {
       type: ActionType.SET_SERVER_ERROR,
-      payload: 'Ошибка'
+      payload: 'Ошибка',
     };
 
     expect(setServerError('Ошибка')).toEqual(expectedAction);
