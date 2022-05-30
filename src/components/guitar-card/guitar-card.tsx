@@ -1,4 +1,5 @@
 import {Guitar} from '../../types/data';
+import './guitar-card.css';
 import {formatPrice, replaceImagePath} from '../../utils/utils';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants/constants';

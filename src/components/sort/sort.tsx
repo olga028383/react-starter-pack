@@ -1,4 +1,5 @@
 import React from 'react';
+import './sort.css';
 
 function Sort(): JSX.Element {
   return (

@@ -1,0 +1,29 @@
+.catalog {
+  display: grid;
+  align-content: start;
+  align-items: start;
+  justify-content: start;
+
+  width: 100%;
+
+  gap: 0 25px;
+  grid-template-areas: "filters sorter" "filters catalog" "filters pagination";
+  grid-template-columns: 215px 1fr;
+  grid-template-rows: -webkit-min-content 1fr -webkit-min-content;
+  grid-template-rows:         min-content 1fr min-content;
+  justify-items: start;
+}
+
+.catalog__cards {
+  margin: 30px 0 0;
+}
+
+.cards {
+  display: grid;
+  align-content: flex-start;
+  justify-content: flex-start;
+
+  gap: 20px;
+  grid-area: catalog;
+  grid-template-columns: repeat(3, 1fr);
+}

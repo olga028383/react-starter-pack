@@ -1,0 +1,15 @@
+.breadcrumbs {
+  display: flex;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.page-content__breadcrumbs {
+  margin: 20px 0 43px;
+}

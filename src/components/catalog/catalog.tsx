@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import './catalog.css';
 import {connect} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {nanoid} from 'nanoid';
@@ -6,8 +7,6 @@ import Filters from '../filters/filters';
 import Sort from '../sort/sort';
 import Pagination from '../pagination/pagination';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import Header from '../header/header';
-import Footer from '../footer/footer';
 import {State} from '../../types/state';
 import {getGuitars} from '../../store/data/selectors';
 import GuitarCard from '../guitar-card/guitar-card';
@@ -40,37 +39,32 @@ function Catalog({guitars, pagesTotal}: catalogTypeProps): JSX.Element {
     }
   }, [params.id]);
 
-  if(pageError){
-    return <NotFound />;
+  if (pageError) {
+    return <NotFound/>;
   }
 
   return (
     <>
-      <Header/>
-      <main className='page-content'>
-        <div className='container'>
 
-          <PageTitle text='Каталог товаров'/>
+      <PageTitle text='Каталог товаров'/>
 
-          <Breadcrumbs links={breadcrumbs}/>
+      <Breadcrumbs links={breadcrumbs}/>
 
-          <div className='catalog'>
-            <Filters/>
-            <Sort/>
+      <div className='catalog'>
+        <Filters/>
+        <Sort/>
 
-            <div className='cards catalog__cards'>
-              {(guitars as Guitar[]).map((guitar) => {
-                const keyValue = `${nanoid()}-guitar`;
-                return (<GuitarCard key={keyValue} guitar={guitar}/>);
-              })}
-            </div>
-
-            {pagesTotal > 0 && <Pagination/>}
-
-          </div>
+        <div className='cards catalog__cards'>
+          {(guitars as Guitar[]).map((guitar) => {
+            const keyValue = `${nanoid()}-guitar`;
+            return (<GuitarCard key={keyValue} guitar={guitar}/>);
+          })}
         </div>
-      </main>
-      <Footer/>
+
+        {pagesTotal > 0 && <Pagination/>}
+
+      </div>
+
     </>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import BreadcrumbsLink from './breadcrumbs-link/breadcrumbs-link';
+import './breadcrumbs.css';
 
 type Link = {
   to: string,

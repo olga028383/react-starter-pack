@@ -1,4 +1,5 @@
 import React from 'react';
+import './review.css';
 import {Review as ReviewData} from '../../../types/data';
 import Rating from '../../rating/rating';
 import {getDataReviewFormat} from '../../../lib/lib';

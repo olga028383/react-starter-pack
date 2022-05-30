@@ -1,4 +1,5 @@
 import React from 'react';
+import './rating.css';
 import {OFFSET_ONE} from '../../constants/constants';
 import {RatingName} from '../../constants/adapters';
 import {getAdaptedValue} from '../../utils/utils';

@@ -1,4 +1,5 @@
 import React from 'react';
+import './header.css';
 import Logo from '../logo/logo';
 
 function Header(): JSX.Element {

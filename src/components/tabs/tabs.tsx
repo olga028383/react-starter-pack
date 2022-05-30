@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import './tabs.css';
 import TabItem from './tab-item/tab-item';
 import Characteristics from './characteristics/characteristics';
 import Description from './description/description';

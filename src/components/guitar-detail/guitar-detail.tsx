@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
+import './guitar-detail.css';
 import {connect} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import Loading from '../loading/loading';
-import Header from '../header/header';
-import Footer from '../footer/footer';
 import NotFound from '../not-found/not-found';
 import {QueryPageTypes} from '../../types/params';
 import {Guitar} from '../../types/data';
@@ -72,37 +71,29 @@ function GuitarDetail({api}: GuitarDetailType): JSX.Element {
 
   return (
     <>
-      <Header/>
 
-      <main className="page-content">
-        <div className="container">
+      <PageTitle text={name}/>
 
-          <PageTitle text={name}/>
+      <Breadcrumbs links={breadcrumbs}/>
 
-          <Breadcrumbs links={breadcrumbs}/>
+      <div className="product-container">
+        <img className="product-container__img" src={imageFormatted} srcSet={`${imageFormatted}@2x.jpg 2x`} width="90" height="235" alt={name}/>
+        <div className="product-container__info-wrapper">
+          <h2 className="product-container__title title title--big title--uppercase">{name}</h2>
 
-          <div className="product-container">
-            <img className="product-container__img" src={imageFormatted} srcSet={`${imageFormatted}@2x.jpg 2x`} width="90" height="235" alt={name}/>
-            <div className="product-container__info-wrapper">
-              <h2 className="product-container__title title title--big title--uppercase">{name}</h2>
+          <Rating rate={rating} widthIcon='14' heightIcon='14' comments={countReview}/>
 
-              <Rating rate={rating} widthIcon='14' heightIcon='14' comments={countReview}/>
-
-              <Tabs content={data as Guitar}/>
-            </div>
-            <div className="product-container__price-wrapper">
-              <p className="product-container__price-info product-container__price-info--title">Цена:</p>
-              <p className="product-container__price-info product-container__price-info--value">{formatPrice(price)}</p>
-              <a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
-            </div>
-          </div>
-
-          <Reviews guitar={data as Guitar} handleSetReviewCount={handleSetReviewCount}/>
-
+          <Tabs content={data as Guitar}/>
         </div>
-      </main>
+        <div className="product-container__price-wrapper">
+          <p className="product-container__price-info product-container__price-info--title">Цена:</p>
+          <p className="product-container__price-info product-container__price-info--value">{formatPrice(price)}</p>
+          <a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
+        </div>
+      </div>
 
-      <Footer/>
+      <Reviews guitar={data as Guitar} handleSetReviewCount={handleSetReviewCount}/>
+
     </>
   );
 }

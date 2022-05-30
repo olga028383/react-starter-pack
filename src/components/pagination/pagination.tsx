@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import './pagination.css';
 import {connect} from 'react-redux';
 import {useParams, Link, useHistory} from 'react-router-dom';
 import {AppDispatch, State} from '../../types/state';

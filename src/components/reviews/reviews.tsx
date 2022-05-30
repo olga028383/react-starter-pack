@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import './reviews.css';
 import {connect} from 'react-redux';
 import {nanoid} from 'nanoid';
 import {useParams} from 'react-router-dom';

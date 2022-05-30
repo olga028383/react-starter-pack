@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import './form-review.css';
 import {connect} from 'react-redux';
 import RatingField from './rating-field/rating-field';
 import {sendComment} from '../../store/api-actions';

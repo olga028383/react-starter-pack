@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import './modal.css';
 import {RemoveScroll} from 'react-remove-scroll';
 import FocusLock from 'react-focus-lock';
 
