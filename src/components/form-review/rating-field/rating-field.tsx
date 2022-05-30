@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 
 type RatingFieldType = {
   index: number,
   value: number,
-  handleRatingChange: any
+  handleRatingChange: (evt: ChangeEvent<HTMLInputElement>) => void,
 }
 
 function RatingField({index, value, handleRatingChange}: RatingFieldType): JSX.Element {

@@ -1,6 +1,7 @@
 import React from 'react';
 import './header.css';
 import Logo from '../logo/logo';
+import {Link} from 'react-router-dom';
 
 function Header(): JSX.Element {
   return (
@@ -11,11 +12,12 @@ function Header(): JSX.Element {
 
         <nav className="main-nav">
           <ul className="main-nav__list">
-            <li><a className="link main-nav__link link--current" href="#">Каталог</a>
+            <li>
+              <a className="link main-nav__link link--current" href="/catalog">Каталог</a>
             </li>
-            <li><a className="link main-nav__link" href="#">Где купить?</a>
+            <li><a className="link main-nav__link" href="/">Где купить?</a>
             </li>
-            <li><a className="link main-nav__link" href="#">О компании</a>
+            <li><a className="link main-nav__link" href="/">О компании</a>
             </li>
           </ul>
         </nav>
@@ -45,12 +47,12 @@ function Header(): JSX.Element {
             <span className="visually-hidden">Сбросить поиск</span>
           </button>
         </div>
-        <a className="header__cart-link" href="#" aria-label="Корзина">
+        <Link className="header__cart-link" to="#" aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
           <span className="visually-hidden">Перейти в корзину</span><span className="header__cart-count">2</span>
-        </a>
+        </Link>
       </div>
     </header>
   );

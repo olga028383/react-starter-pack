@@ -23,32 +23,32 @@ jest.mock('../modal/modal', () => {
 
 const mockFetchComments = fetchComments as jest.MockedFunction<typeof fetchComments>;
 
-let fakeApp: any = null;
-let history = null;
-let store = null;
+const renderReviewsComponent = () => {
+  const history = createMemoryHistory();
+
+  const createFakeStore = configureStore();
+  const store = createFakeStore({
+    DATA: {isDataLoaded: true, guitars: [Guitar, Guitar, Guitar]},
+    APPLICATION: {serverError: '', currentPage: 1, pagesTotal: 27, api: jest.fn()},
+  });
+
+  const fakeApp = (
+    <Provider store={store}>
+      <Router history={history}>
+        <Reviews guitar={Guitar} handleSetReviewCount={jest.fn()}/>
+      </Router>
+    </Provider>
+  );
+
+  render(fakeApp);
+};
 
 describe('Component: Reviews', () => {
-  beforeAll(() => {
-    history = createMemoryHistory();
-
-    const createFakeStore = configureStore();
-    store = createFakeStore({
-      DATA: {isDataLoaded: true, guitars: [Guitar, Guitar, Guitar]},
-      APPLICATION: {serverError: '', currentPage: 1, pagesTotal: 27, api: jest.fn()},
-    });
-
-    fakeApp = (
-      <Provider store={store}>
-        <Router history={history}>
-          <Reviews guitar={Guitar} handleSetReviewCount={jest.fn()}/>
-        </Router>
-      </Provider>
-    );
-  });
 
   it('there must be a correct render Reviews', async () => {
     mockFetchComments.mockReturnValue(Promise.resolve([ReviewTest, ReviewTest, ReviewTest, ReviewTest, ReviewTest]));
-    render(fakeApp);
+    renderReviewsComponent();
+
     expect(screen.getByText(/Loading/i)).toBeInTheDocument();
 
     expect(await screen.findByText(/Оставить отзыв/i)).toBeInTheDocument();
@@ -59,7 +59,7 @@ describe('Component: Reviews', () => {
 
   it('clicking on the view button further increases the number of reviews displayed.', async () => {
     mockFetchComments.mockReturnValue(Promise.resolve([ReviewTest, ReviewTest, ReviewTest, ReviewTest, ReviewTest]));
-    render(fakeApp);
+    renderReviewsComponent();
 
     userEvent.click(await screen.findByText(/Показать еще отзывы/i));
     expect(await screen.findAllByText(/Вася/i)).toHaveLength(5);
@@ -68,7 +68,7 @@ describe('Component: Reviews', () => {
 
   it('clicking on the button displays the feedback form review.', async () => {
     mockFetchComments.mockReturnValue(Promise.resolve([ReviewTest, ReviewTest, ReviewTest, ReviewTest, ReviewTest]));
-    render(fakeApp);
+    renderReviewsComponent();
 
     userEvent.click(await screen.findByText(/Оставить отзыв/i));
     expect(await screen.findByText(/Modal/i)).toBeInTheDocument();

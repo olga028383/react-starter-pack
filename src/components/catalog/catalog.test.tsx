@@ -7,16 +7,12 @@ import {Provider} from 'react-redux';
 import Catalog from './catalog';
 import {Guitar} from '../../mock/test';
 
-let history = null;
-let store = null;
-
 describe('Component: GuitarCard', () => {
-
   it('should display GuitarCard', () => {
-    history = createMemoryHistory();
+    const history = createMemoryHistory();
 
     const createFakeStore = configureStore();
-    store = createFakeStore({
+    const store = createFakeStore({
       DATA: {isDataLoaded: true, guitars: [Guitar, Guitar, Guitar]},
       APPLICATION: {serverError: '', currentPage: 1, pagesTotal: 27},
     });

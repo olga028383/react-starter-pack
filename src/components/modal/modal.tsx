@@ -1,17 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, MouseEvent} from 'react';
 import './modal.css';
 import {RemoveScroll} from 'react-remove-scroll';
 import FocusLock from 'react-focus-lock';
 
 type ModalType = {
   active: boolean,
-  setActive: any,
+  setActive: (active: boolean) => void,
   children: JSX.Element,
   additionalClass: string
 }
 
 function Modal({active, setActive, children, additionalClass}: ModalType): JSX.Element | null {
-  const handleCloseModalClick = (evt: any) => {
+  const handleCloseModalClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     setActive(false);
   };

@@ -23,11 +23,11 @@ const mapStateToProps = (state: State) => ({
 });
 
 type catalogTypeProps = {
-  guitars?: any,
-  pagesTotal?: any,
+  guitars?: Guitar[],
+  pagesTotal?: number,
 }
 
-function Catalog({guitars, pagesTotal}: catalogTypeProps): JSX.Element {
+function Catalog({guitars, pagesTotal = 0}: catalogTypeProps): JSX.Element {
   const params = useParams<QueryPageTypes>();
   const [pageError, setPageError] = useState(false);
   const breadcrumbs = [{to: AppRoute.CATALOG, text: Title.CATALOG}];
@@ -37,7 +37,7 @@ function Catalog({guitars, pagesTotal}: catalogTypeProps): JSX.Element {
     if (Object.keys(params).length > 0 && (isNaN(id) || (id > pagesTotal))) {
       setPageError(true);
     }
-  }, [params.id]);
+  }, [params.id, pagesTotal]);
 
   if (pageError) {
     return <NotFound/>;

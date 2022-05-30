@@ -4,14 +4,9 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import Header from './header';
 
-let history:any;
-
 describe('Component: Header', () => {
-  beforeAll(() => {
-    history = createMemoryHistory();
-  });
   it('should display Header', () => {
-
+    const history = createMemoryHistory();
     render(
       <Router history={history}>
         <Header />

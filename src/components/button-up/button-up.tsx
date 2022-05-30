@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {MouseEvent} from 'react';
 import {Link} from 'react-router-dom';
 
 function ButtonUp(): JSX.Element {
 
-  const handleLinkClick = (evt: any) => {
+  const handleLinkClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     window.scrollTo(0, 0);
   };

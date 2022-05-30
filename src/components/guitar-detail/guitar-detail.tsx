@@ -65,7 +65,7 @@ function GuitarDetail({api}: GuitarDetailType): JSX.Element {
   const imageFormatted = replaceImagePath(previewImg);
   const breadcrumbs = [{to: AppRoute.CATALOG, text: Title.CATALOG}, {to: '#', text: name}];
 
-  const handleSetReviewCount = (countComments: string) => {
+  const handleSetReviewCount = (countComments: number) => {
     setCountReview(Number(countComments));
   };
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, MouseEvent} from 'react';
 import './tabs.css';
 import TabItem from './tab-item/tab-item';
 import Characteristics from './characteristics/characteristics';
@@ -28,8 +28,10 @@ function Tabs({content}: {content: Guitar}): JSX.Element {
   const params = useParams<QueryPageTypes>();
   const [currentTab, setCurrentTab] = useState((params.tab && dataTabs.get(params.tab))? dataTabs.get(params.tab): DEFAULT_TAB);
 
-  const handleTabClick = (evt: any): void => {
-    setCurrentTab(evt.target.textContent);
+  const handleTabClick = (evt: MouseEvent<HTMLAnchorElement>): void => {
+    const link = evt.target as HTMLElement;
+    const tabName = link.textContent ? link.textContent : DEFAULT_TAB;
+    setCurrentTab(tabName);
   };
 
   return (

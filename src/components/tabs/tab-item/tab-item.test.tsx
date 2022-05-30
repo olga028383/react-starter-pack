@@ -4,14 +4,9 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import TabItem from './tab-item';
 
-let history:any;
-
 describe('Component: TabItem', () => {
-  beforeAll(() => {
-    history = createMemoryHistory();
-  });
-
   it('should display TabItem active', () => {
+    const history = createMemoryHistory();
 
     render(
       <Router history={history}>

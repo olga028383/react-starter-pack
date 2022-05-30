@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 import './form-review.css';
 import {connect} from 'react-redux';
 import RatingField from './rating-field/rating-field';
 import {sendComment} from '../../store/api-actions';
-import {Guitar, ReviewPost} from '../../types/data';
+import {Guitar, ReviewPost, Review} from '../../types/data';
 import RequiredError from './required-error/required-error';
 import {setServerError} from '../../store/action';
 import {AppDispatch, State} from '../../types/state';
@@ -19,7 +19,7 @@ const Field = {
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  handleSetServerError(message: string) {
+  onSetServerError(message: string) {
     dispatch(setServerError(message));
   },
 });
@@ -50,13 +50,13 @@ const checkValidate = (data: ReviewPost): boolean => (!Object.values(data).filte
 
 type FormReview = {
   guitar: Guitar,
-  setReviewData: any,
-  handleSetServerError?: any,
-  showSuccessModal: any,
+  setReviewData: (review: Review) => void,
+  onSetServerError?: any,
+  showSuccessModal: (active: boolean) => void,
   api?: any
 }
 
-function FormReview({guitar, setReviewData, handleSetServerError, showSuccessModal, api}: FormReview): JSX.Element {
+function FormReview({guitar, setReviewData, onSetServerError, showSuccessModal, api}: FormReview): JSX.Element {
   const {name, id} = guitar;
   const [error, setError] = useState(false);
 
@@ -96,13 +96,14 @@ function FormReview({guitar, setReviewData, handleSetServerError, showSuccessMod
 
         showSuccessModal(true);
       })
-      .catch((err) => handleSetServerError(err.message));
+      .catch((err) => onSetServerError(err.message));
   };
 
-  const handleFieldChange = (evt: any) => {
+  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const input  = evt.target as HTMLInputElement | HTMLTextAreaElement;
     setData({
       ...data,
-      ...getCurrentField(evt.target.id, evt.target.value),
+      ...getCurrentField(input.id, input.value),
     });
   };
 

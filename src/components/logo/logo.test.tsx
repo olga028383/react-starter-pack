@@ -5,14 +5,9 @@ import {createMemoryHistory} from 'history';
 import Logo from './logo';
 import userEvent from '@testing-library/user-event';
 
-let history:any;
-
 describe('Component: Logo', () => {
-  beforeAll(() => {
-    history = createMemoryHistory();
-  });
-
   it('should render correctly', () => {
+    const history = createMemoryHistory();
     render(
       <Router history={history}>
         <Logo additionalClass={'test'}/>
@@ -22,6 +17,7 @@ describe('Component: Logo', () => {
   });
 
   it('should redirect to root url when user clicked to link', () => {
+    const history = createMemoryHistory();
     history.push('/fake');
     render(
       <Router history={history}>

@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, MouseEvent} from 'react';
 import './reviews.css';
 import {connect} from 'react-redux';
 import {nanoid} from 'nanoid';
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {fetchComments} from '../../store/api-actions';
 import Loading from '../loading/loading';
 import Review from './review/review';
@@ -25,7 +25,7 @@ const mapStateToProps = (state: State) => ({
 
 type ReviewsType = {
   guitar: Guitar,
-  handleSetReviewCount: any,
+  handleSetReviewCount: (count: number) => void,
   api?: AxiosInstance
 };
 
@@ -38,11 +38,12 @@ function Reviews({guitar, handleSetReviewCount, api}: ReviewsType): JSX.Element 
   const [modalActive, setModalActive] = useState(false);
   const [modalSuccessActive, setModalSuccessActive] = useState(false);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (evt: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+    evt.preventDefault();
     setCountReviews(countReviews + MIN_COUNT_REVIEWS);
   };
 
-  const handleModalOpenButtonClick = (evt: any) => {
+  const handleModalOpenButtonClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     setModalActive(true);
   };
@@ -55,12 +56,13 @@ function Reviews({guitar, handleSetReviewCount, api}: ReviewsType): JSX.Element 
     ];
     setComments(commentsNew);
 
-    handleSetReviewCount(commentsNew.length);
+    const commentsCount = Number(commentsNew.length);
+    handleSetReviewCount(commentsCount);
   };
 
   useEffect(() => {
     fetchComments(params.id, api as AxiosInstance)
-      .then((commentsData: any) => {
+      .then((commentsData: ReviewType[]) => {
         setComments(commentsData.slice().sort((a: ReviewType, b: ReviewType): number => (new Date(b.createAt).getTime() - new Date(a.createAt).getTime())));
         setIsLoading(true);
       });
@@ -76,7 +78,7 @@ function Reviews({guitar, handleSetReviewCount, api}: ReviewsType): JSX.Element 
   return (
     <section className="reviews">
       <h3 className="reviews__title title title--bigger">{comments.length > 0 ? 'Отзывы' : 'Пока нет ни одного отзыва'}</h3>
-      <a className="button button--red-border button--big reviews__sumbit-button" href="#" onClick={handleModalOpenButtonClick}>Оставить отзыв</a>
+      <Link className="button button--red-border button--big reviews__sumbit-button" to="#" onClick={handleModalOpenButtonClick}>Оставить отзыв</Link>
 
       {comments.slice(0, countReviews).map((comment: ReviewType) =>
         <Review key={`${nanoid()}-comments`} review={comment}/>)}

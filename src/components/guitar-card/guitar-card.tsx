@@ -25,7 +25,7 @@ function GuitarCard({guitar}: typePropsGuitarCart ): JSX.Element {
       </div>
       <div className="product-card__buttons">
         <Link className="button button--mini" to={`${AppRoute.CATALOG}/${id}`}>Подробнее</Link>
-        <a className="button button--red button--mini button--add-to-cart" href="#">Купить</a>
+        <Link className="button button--red button--mini button--add-to-cart" to="#">Купить</Link>
       </div>
     </div>
   );

@@ -5,26 +5,25 @@ import {createMemoryHistory} from 'history';
 import userEvent from '@testing-library/user-event';
 import ButtonUp from './button-up';
 
-let history = null;
-let fakeApp:any = null;
 window.scrollTo = jest.fn();
 
+const renderButtonUpComponent = () => {
+  const history = createMemoryHistory();
+  const fakeApp = (
+    <Router history={history}><ButtonUp/></Router>
+  );
+
+  render(fakeApp);
+};
+
 describe('Component: ButtonUp', () => {
-  beforeAll(() => {
-    history = createMemoryHistory();
-    fakeApp = (
-      <Router history={history}><ButtonUp/></Router>
-    );
-  });
-
-
   it('should render correctly', () => {
-    render(fakeApp);
+    renderButtonUpComponent();
     expect(screen.getByText('Наверх')).toBeInTheDocument();
   });
 
   it('should scroll the page to the top on click', () => {
-    render(fakeApp);
+    renderButtonUpComponent();
     userEvent.click(screen.getByText(/Наверх/i));
     expect(window.scrollTo).toBeCalledTimes(1);
   });

@@ -7,32 +7,23 @@ import {createMemoryHistory} from 'history';
 import FormReview from './form-review';
 import {Guitar} from '../../mock/test';
 
-let history = null;
-let store = null;
-let fakeApp:any = null;
-
 describe('Component: FormReview', () => {
-
-  beforeAll(() => {
-    history = createMemoryHistory();
+  it('should display FormReview', () => {
+    const history = createMemoryHistory();
 
     const createFakeStore = configureStore();
-    store = createFakeStore({
+    const store = createFakeStore({
       DATA: {isDataLoaded: true, guitars: [Guitar, Guitar]},
       APPLICATION: {serverError: '', currentPage: 1},
     });
 
-    fakeApp = (
+    const fakeApp = (
       <Provider store={store}>
         <Router history={history}>
           <FormReview guitar={Guitar} setReviewData={jest.fn()} showSuccessModal={jest.fn()}/>
         </Router>
       </Provider>
     );
-  });
-
-  it('should display FormReview', () => {
-
     render(fakeApp);
 
     expect(screen.getByText(/Оставить отзыв/i)).toBeInTheDocument();

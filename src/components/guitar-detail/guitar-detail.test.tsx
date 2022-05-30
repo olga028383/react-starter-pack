@@ -21,44 +21,40 @@ jest.mock('../reviews/reviews', () => {
 });
 const mockFetchGuitar = fetchGuitar as jest.MockedFunction<typeof fetchGuitar>;
 
-let fakeApp: any = null;
-let history = null;
-let store = null;
+const renderGuitarDetailComponent = () => {
+  const history = createMemoryHistory();
+  history.push('/catalog/1');
 
-
-describe('Component: GuitarDetail', () => {
-  beforeAll(() => {
-    history = createMemoryHistory();
-    history.push('/catalog/1');
-
-    const createFakeStore = configureStore();
-    store = createFakeStore({
-      DATA: {isDataLoaded: true, guitars: [Guitar, Guitar, Guitar]},
-      APPLICATION: {serverError: '', currentPage: 1, totalPages: 3, api: jest.fn()},
-    });
-
-    fakeApp = (
-      <Provider store={store}>
-        <Router history={history}>
-          <GuitarDetail/>;
-        </Router>
-      </Provider>
-    );
+  const createFakeStore = configureStore();
+  const store = createFakeStore({
+    DATA: {isDataLoaded: true, guitars: [Guitar, Guitar, Guitar]},
+    APPLICATION: {serverError: '', currentPage: 1, totalPages: 3, api: jest.fn()},
   });
 
-  it('should display page guitar detail not found', async() => {
+  const fakeApp = (
+    <Provider store={store}>
+      <Router history={history}>
+        <GuitarDetail/>;
+      </Router>
+    </Provider>
+  );
+
+  render(fakeApp);
+};
+
+describe('Component: GuitarDetail', () => {
+  it('should display page guitar detail not found', async () => {
     mockFetchGuitar.mockReturnValue(Promise.reject());
-    render(fakeApp);
+    renderGuitarDetailComponent();
 
     expect(screen.getByText(/Loading/i)).toBeInTheDocument();
 
     expect(await screen.findByText(/Page not found/i)).toBeInTheDocument();
   });
 
-  it('should display page guitar detail', async() => {
-
+  it('should display page guitar detail', async () => {
     mockFetchGuitar.mockReturnValue(Promise.resolve(Guitar));
-    render(fakeApp);
+    renderGuitarDetailComponent();
 
     expect(screen.getByText(/Loading/i)).toBeInTheDocument();
 

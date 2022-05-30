@@ -7,15 +7,18 @@ import Tabs from './tabs';
 import {Guitar} from '../../mock/test';
 import {AppRoute} from '../../constants/constants';
 
-let history:any = null;
+const renderTabsComponent = (path: string | null) => {
+  const history = createMemoryHistory();
+  if(path) {
+    history.push(path);
+  }
+  render(<Router history={history}><Tabs content={Guitar}/></Router>);
+};
 
 describe('Component: Tabs', () => {
-  beforeAll(() => {
-    history = createMemoryHistory();
-  });
 
   it('the component should render correctly', () => {
-    render(<Router history={history}><Tabs content={Guitar}/></Router>);
+    renderTabsComponent(null);
 
     expect(screen.getByText(/Характеристики/i)).toBeInTheDocument();
     expect(screen.getByText(/Описание/i)).toBeInTheDocument();
@@ -23,8 +26,7 @@ describe('Component: Tabs', () => {
   });
 
   it('should switch the reviews tab on click', () => {
-    history.push(`${AppRoute.CATALOG_PAGE}/1/description/`);
-    render(<Router history={history}><Tabs content={Guitar}/></Router>);
+    renderTabsComponent(`${AppRoute.CATALOG_PAGE}/1/description/`);
 
     userEvent.click(screen.getByText(/Описание/i));
     expect(screen.getByText(/Замечательный малобюджетный вариант, созданный для новичков, которые отдают предпочтение мелодичным стилям./i)).toBeInTheDocument();

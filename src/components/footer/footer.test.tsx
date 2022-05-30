@@ -4,15 +4,9 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import Footer from './footer';
 
-let history:any;
-
 describe('Component: Footer', () => {
-  beforeAll(() => {
-    history = createMemoryHistory();
-  });
-
   it('should display Footer', () => {
-
+    const history = createMemoryHistory();
     render(
       <Router history={history}>
         <Footer/>

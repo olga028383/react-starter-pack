@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, MouseEvent} from 'react';
 import './pagination.css';
 import {connect} from 'react-redux';
 import {useParams, Link, useHistory} from 'react-router-dom';
@@ -35,7 +35,7 @@ const createPathLink = (link: number): string => link !== FIRST_PAGE ? `${AppRou
 type PaginationType = {
   totalPages?: number,
   currentPage?: number,
-  onSetCurrentPage?: any,
+  onSetCurrentPage?: (page: number) => void,
 }
 
 function Pagination({totalPages, currentPage = FIRST_PAGE, onSetCurrentPage}: PaginationType): JSX.Element {
@@ -49,18 +49,19 @@ function Pagination({totalPages, currentPage = FIRST_PAGE, onSetCurrentPage}: Pa
     const pageNum = Number(params.id);
     if (pageNum && pageNum !== currentPage) {
 
-      if (pageNum > FIRST_PAGE) {
+      if (pageNum > FIRST_PAGE && onSetCurrentPage) {
         onSetCurrentPage(pageNum);
       }
     }
 
   }, [params.id]);
 
-  const handleButtonClick = (evt: any): void => {
+  const handleButtonClick = (evt: MouseEvent<HTMLAnchorElement>): void => {
     evt.preventDefault();
+    const target = evt.target as HTMLElement;
+    const idButton = target.id;
 
-    const idButton = evt.target.id;
-    if (idButton) {
+    if (idButton && onSetCurrentPage) {
       switch (idButton) {
         case Button.Next:
           onSetCurrentPage(++currentPage);
@@ -88,7 +89,16 @@ function Pagination({totalPages, currentPage = FIRST_PAGE, onSetCurrentPage}: Pa
             const activeLink = currentPage === link ? 'pagination__page--active' : '';
             return (
               <li key={`${link}-page`} className={`pagination__page ${activeLink}`}>
-                <Link className="link pagination__page-link" to={createPathLink(link)} onClick={() => onSetCurrentPage(link)}>{link}</Link>
+                <Link className="link pagination__page-link"
+                  to={createPathLink(link)}
+                  onClick={() => {
+                    if (onSetCurrentPage) {
+                      onSetCurrentPage(link);
+                    }
+                  }}
+                >
+                  {link}
+                </Link>
               </li>
             );
           })

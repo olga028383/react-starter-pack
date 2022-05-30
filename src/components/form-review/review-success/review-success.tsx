@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 
 type ReviewSuccessType = {
-  setCurrentModalActive: any,
-  setFormReviewModal: any
+  setCurrentModalActive: (active: boolean) => void,
+  setFormReviewModal: (active: boolean) => void
 }
 
 function ReviewSuccess({setCurrentModalActive, setFormReviewModal}: ReviewSuccessType): JSX.Element {

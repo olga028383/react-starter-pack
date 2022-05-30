@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {MouseEvent} from 'react';
 
 type MoreButtonType = {
-  handleClickButton: any,
+  handleClickButton: (evt: MouseEvent<HTMLButtonElement>) => void,
 }
 
 function MoreButton({handleClickButton}: MoreButtonType): JSX.Element {
