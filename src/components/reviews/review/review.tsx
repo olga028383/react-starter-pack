@@ -15,7 +15,7 @@ function Review({review}: ReviewType): JSX.Element {
     <div className="review">
       <div className="review__wrapper">
         <h4 className="review__title review__title--author title title--lesser">{userName}</h4>
-        <span className="review__date">{getDataReviewFormat(createAt, 'DD MMMM, YYYY')}</span>
+        <span className="review__date">{getDataReviewFormat(createAt, 'DD MMMM')}</span>
       </div>
 
       <Rating rate={rating} widthIcon='16' heightIcon='16'/>

@@ -4,7 +4,10 @@ import {GuitarType} from '../constants/adapters';
 
 describe('tests utility functions', () => {
   it('must return a valid path', () => {
-    expect(replaceImagePath(Guitar.previewImg)).toBe('/img/content/catalog-product-1.jpg');
+    expect(JSON.stringify(replaceImagePath(Guitar.previewImg))).toBe(JSON.stringify({
+      winPath: '/img/content/catalog-product-1.jpg',
+      macPath: '/img/content/catalog-product-1@2x.jpg',
+    }));
   });
 
   it('should return the formatted price', () => {

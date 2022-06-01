@@ -77,7 +77,7 @@ function GuitarDetail({api}: GuitarDetailType): JSX.Element {
       <Breadcrumbs links={breadcrumbs}/>
 
       <div className="product-container">
-        <img className="product-container__img" src={imageFormatted} srcSet={`${imageFormatted}@2x.jpg 2x`} width="90" height="235" alt={name}/>
+        <img className="product-container__img" src={imageFormatted.winPath} srcSet={`${imageFormatted.macPath} 2x`} width="90" height="235" alt={name}/>
         <div className="product-container__info-wrapper">
           <h2 className="product-container__title title title--big title--uppercase">{name}</h2>
 

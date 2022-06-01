@@ -38,7 +38,7 @@ function Tabs({content}: {content: Guitar}): JSX.Element {
     <div className="tabs">
 
       {Array.from(dataTabs.entries()).map((tab) =>
-        <TabItem key={tab[0]} title={tab[1]} url={`${AppRoute.CATALOG}/${params.id}/${tab[0].toLocaleLowerCase()}`} currentTab={currentTab} handleTabClick={handleTabClick}/>)}
+        <TabItem key={tab[0]} title={tab[1]} url={`${AppRoute.PRODUCT}/${params.id}/${tab[0].toLocaleLowerCase()}`} currentTab={currentTab} handleTabClick={handleTabClick}/>)}
 
       <div className="tabs__content">
         {renderContentTab(content, currentTab)}

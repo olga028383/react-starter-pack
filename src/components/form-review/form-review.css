@@ -58,10 +58,7 @@
   border: 1px solid #585757;
   border-radius: 2px;
   background-color: inherit;
-}
-
-.form-review__input--name {
-  margin-bottom: 0;
+  margin-bottom: 17px;
 }
 
 .form-review__input--textarea {
@@ -126,6 +123,7 @@
 
   text-align: end;
   letter-spacing: 0.02em;
+  margin-top: -15px;
 }
 
 .form-review__button {

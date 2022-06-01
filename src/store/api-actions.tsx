@@ -6,7 +6,7 @@ import {Guitar, Review, ReviewPost} from '../types/data';
 import {getPagesCount} from '../utils/utils';
 
 export const fetchGuitars = (page: number): any => (dispatch: AppDispatch, _getState: State, api: AxiosInstance) => (
-  api.get(`${ApiRoute.Guitars}?_start=${SHOW_PAGE * page - SHOW_PAGE}&_limit=${SHOW_PAGE * page}&_embed=comments`)
+  api.get(`${ApiRoute.Guitars}?_start=${SHOW_PAGE * page - SHOW_PAGE}&_limit=${SHOW_PAGE}&_embed=comments`)
     .then(({data, headers}) => {
       dispatch(setTotalPages(getPagesCount(Number(headers['x-total-count']))));
       dispatch(loadGuitars(data.filter((item: Guitar) => Object.keys(item).includes('name'))));

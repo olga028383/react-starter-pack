@@ -124,7 +124,7 @@ function FormReview({guitar, setReviewData, onSetServerError, showSuccessModal, 
 
               {new Array(COUNT_RATING).fill(null).map((element, index) => {
                 const keyValue = `${index}-${element}`;
-                return <RatingField index={COUNT_RATING - index} value={rating} handleRatingChange={handleFieldChange} key={keyValue}/>;
+                return <RatingField index={++index} value={rating} handleRatingChange={handleFieldChange} key={keyValue}/>;
               })}
 
               {(!rating && error) && <p className="rate__message">Поставьте оценку</p>}

@@ -5,9 +5,10 @@ export const ApiRoute = {
 
 export const AppRoute = {
   CATALOG: '/catalog',
+  PRODUCT: '/product',
   CATALOG_PAGE: '/catalog/page/:id',
-  CATALOG_DETAIL: '/catalog/:id',
-  CATALOG_DETAIL_TAB: '/catalog/:id/:tab',
+  CATALOG_DETAIL: '/product/:id',
+  CATALOG_DETAIL_TAB: '/product/:id/:tab',
   ROOT: '/',
 };
 

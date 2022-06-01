@@ -1,7 +1,8 @@
 import React from 'react';
 import './header.css';
 import Logo from '../logo/logo';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
+import {AppRoute} from '../../constants/constants';
 
 function Header(): JSX.Element {
   return (
@@ -13,11 +14,29 @@ function Header(): JSX.Element {
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li>
-              <a className="link main-nav__link link--current" href="/catalog">Каталог</a>
+              <NavLink
+                to={AppRoute.CATALOG}
+                activeClassName="link--current"
+                className='link main-nav__link'
+              >
+                Каталог
+              </NavLink>
             </li>
-            <li><a className="link main-nav__link" href="/">Где купить?</a>
+            <li>
+              <NavLink
+                to={AppRoute.ROOT}
+                className='link main-nav__link'
+              >
+                Где купить?
+              </NavLink>
             </li>
-            <li><a className="link main-nav__link" href="/">О компании</a>
+            <li>
+              <NavLink
+                to={AppRoute.ROOT}
+                className='link main-nav__link'
+              >
+                О компании
+              </NavLink>
             </li>
           </ul>
         </nav>

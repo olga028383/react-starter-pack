@@ -9,7 +9,7 @@ type RatingFieldType = {
 function RatingField({index, value, handleRatingChange}: RatingFieldType): JSX.Element {
   return (
     <>
-      <input className="visually-hidden" id={`star-${index}`} type="radio" name="rating" value={index} checked={value === index} onChange={handleRatingChange}/>
+      <input className="visually-hidden" id={`star-${index}`} type="radio" name="rating" value={index} onChange={handleRatingChange}/>
       <label className="rate__label" htmlFor={`star-${index}`}></label>
     </>
   );

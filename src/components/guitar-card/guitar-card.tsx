@@ -14,7 +14,7 @@ function GuitarCard({guitar}: typePropsGuitarCart ): JSX.Element {
   const imageFormatted = replaceImagePath(previewImg);
   return (
     <div className="product-card">
-      <img src={imageFormatted} srcSet={`${imageFormatted}@2x.jpg 2x`} width="75" height="190" alt={name}/>
+      <img src={imageFormatted.winPath} srcSet={`${imageFormatted.macPath} 2x`} width="75" height="190" alt={name}/>
       <div className="product-card__info">
 
         <Rating rate={rating} widthIcon='12' heightIcon='11' comments={guitar.comments.length}/>
@@ -24,7 +24,7 @@ function GuitarCard({guitar}: typePropsGuitarCart ): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <Link className="button button--mini" to={`${AppRoute.CATALOG}/${id}`}>Подробнее</Link>
+        <Link className="button button--mini" to={`${AppRoute.PRODUCT}/${id}`}>Подробнее</Link>
         <Link className="button button--red button--mini button--add-to-cart" to="#">Купить</Link>
       </div>
     </div>

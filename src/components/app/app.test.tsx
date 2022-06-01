@@ -60,7 +60,7 @@ describe('Application Routing', () => {
 
   it('should display the description in tabs when the user navigates "/catalog/1/description"', async () => {
     mockFetchGuitar.mockReturnValue(Promise.resolve(Guitar));
-    renderAppComponent('/catalog/1/description');
+    renderAppComponent('/product/1/description');
     expect(screen.getByText(/Loading/i)).toBeInTheDocument();
 
     expect(await screen.findByText(/Описание/i)).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe('Application Routing', () => {
 
   it('should render "Guitar Detail" when user navigate to "/catalog/id"', async () => {
     mockFetchGuitar.mockReturnValue(Promise.resolve(Guitar));
-    renderAppComponent('/catalog/1');
+    renderAppComponent('/product/1');
 
     expect(screen.getByText(/Loading/i)).toBeInTheDocument();
 
