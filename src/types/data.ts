@@ -19,7 +19,7 @@ export type Guitar = {
   stringCount: number,
   rating: number,
   price: number,
-  comments: Review[],
+  comments?: Review[],
 };
 
 export type ReviewPost = {

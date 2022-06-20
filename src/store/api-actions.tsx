@@ -14,6 +14,11 @@ export const fetchGuitars = (page: number): any => (dispatch: AppDispatch, _getS
     .catch((err) => dispatch(setServerError(err.message)))
 );
 
+export const searchGuitars = (name: string, api: AxiosInstance): Promise<Guitar[]> => (
+  api.get(`${ApiRoute.Guitars}?name_like=${name}`)
+    .then(({data}) => data)
+);
+
 export const fetchGuitar = (id: string, api: AxiosInstance): Promise<Guitar> => (
   api.get(`${ApiRoute.Guitars}/${id}?_embed=comments`)
     .then(({data}) => data)

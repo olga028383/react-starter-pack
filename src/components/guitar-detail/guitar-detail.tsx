@@ -38,7 +38,7 @@ function GuitarDetail({api}: GuitarDetailType): JSX.Element {
     fetchGuitar(params.id, api as AxiosInstance)
       .then((guitar) => {
         setData(guitar);
-        setCountReview(Number(guitar.comments.length));
+        setCountReview(guitar.comments? Number(guitar.comments.length):0);
         setIsLoading(false);
       })
       .catch(() => {
