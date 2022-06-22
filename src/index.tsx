@@ -11,8 +11,8 @@ import thunk from 'redux-thunk';
 import {fetchGuitars} from './store/api-actions';
 import App from './components/app/app';
 import {setApi} from './store/action';
+import {ONE_PAGE} from './constants/constants';
 
-const ONE_PAGE = 1;
 const api = createApi();
 const store = createStore(
   reducer,

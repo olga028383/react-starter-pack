@@ -11,3 +11,4 @@ export const RatingName = new Map([
   ['4', 'Хорошо'],
   ['5', 'Отлично'],
 ]);
+
