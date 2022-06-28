@@ -1,61 +1,54 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import './filters.css';
+import {nanoid} from 'nanoid';
+import TypeGuitar from './type-guitar/type-guitar';
+import NumberStrings from './number-strings/number-strings';
+import {GuitarFilterType} from '../../constants/adapters';
+import PriceFilterMin from './price-filter-min/price-filter-min';
+import PriceFilterMax from './price-filter-max/price-filter-max';
+import {fetchGuitars} from '../../store/api-actions';
+import {clearFilter} from '../../store/action';
+import {AppDispatch} from '../../types/state';
+import {ONE_PAGE} from '../../constants/constants';
 
-function Filters(): JSX.Element {
+const numberStringsData = [4, 6, 7, 12];
+
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  onClearFilter: () => {
+    dispatch(clearFilter());
+    dispatch(fetchGuitars(ONE_PAGE));
+  },
+});
+
+type Props ={
+  onClearFilter?: () => void
+}
+function Filters({onClearFilter}: Props): JSX.Element {
   return (
     <form className="catalog-filter">
       <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
       <fieldset className="catalog-filter__block">
         <legend className="catalog-filter__block-title">Цена, ₽</legend>
         <div className="catalog-filter__price-range">
-          <div className="form-input">
-            <label className="visually-hidden">Минимальная цена</label>
-            <input type="number" placeholder="1 000" id="priceMin" name="от"/>
-          </div>
-          <div className="form-input">
-            <label className="visually-hidden">Максимальная цена</label>
-            <input type="number" placeholder="30 000" id="priceMax" name="до"/>
-          </div>
+          <PriceFilterMin/>
+          <PriceFilterMax/>
         </div>
       </fieldset>
       <fieldset className="catalog-filter__block">
         <legend className="catalog-filter__block-title">Тип гитар</legend>
-        <div className="form-checkbox catalog-filter__block-item">
-          <input className="visually-hidden" type="checkbox" id="acoustic" name="acoustic"/>
-          <label htmlFor="acoustic">Акустические гитары</label>
-        </div>
-        <div className="form-checkbox catalog-filter__block-item">
-          <input className="visually-hidden" type="checkbox" id="electric" name="electric" />
-          <label htmlFor="electric">Электрогитары</label>
-        </div>
-        <div className="form-checkbox catalog-filter__block-item">
-          <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele" />
-          <label htmlFor="ukulele">Укулеле</label>
-        </div>
+        {Array.from(GuitarFilterType).map((item) =>
+          <TypeGuitar key={`${nanoid()}-type`} name={item[1]} code={item[0]}/>)}
       </fieldset>
       <fieldset className="catalog-filter__block">
         <legend className="catalog-filter__block-title">Количество струн</legend>
-        <div className="form-checkbox catalog-filter__block-item">
-          <input className="visually-hidden" type="checkbox" id="4-strings" name="4-strings" />
-          <label htmlFor="4-strings">4</label>
-        </div>
-        <div className="form-checkbox catalog-filter__block-item">
-          <input className="visually-hidden" type="checkbox" id="6-strings" name="6-strings" />
-          <label htmlFor="6-strings">6</label>
-        </div>
-        <div className="form-checkbox catalog-filter__block-item">
-          <input className="visually-hidden" type="checkbox" id="7-strings" name="7-strings"/>
-          <label htmlFor="7-strings">7</label>
-        </div>
-        <div className="form-checkbox catalog-filter__block-item">
-          <input className="visually-hidden" type="checkbox" id="12-strings" name="12-strings" disabled/>
-          <label htmlFor="12-strings">12</label>
-        </div>
+        {numberStringsData.map((item) => <NumberStrings key={`${nanoid()}-strings`} name={item}/>)}
       </fieldset>
-      <button className="catalog-filter__reset-btn button button--black-border button--medium" type="reset">Очистить</button>
+      <button className="catalog-filter__reset-btn button button--black-border button--medium" type="reset" onClick={onClearFilter}>Очистить</button>
     </form>
 
   );
 }
 
-export default Filters;
+export {Filters};
+export default connect(null, mapDispatchToProps)(Filters);

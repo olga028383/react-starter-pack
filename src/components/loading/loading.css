@@ -1,0 +1,10 @@
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.loading svg {
+  margin: auto;
+  shape-rendering: auto;
+  display: block;
+}

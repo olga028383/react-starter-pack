@@ -8,29 +8,32 @@ import Sort from '../sort/sort';
 import Pagination from '../pagination/pagination';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import {State} from '../../types/state';
-import {getGuitars} from '../../store/data/selectors';
+import {getGuitars, getIsLoadData} from '../../store/data/selectors';
 import GuitarCard from '../guitar-card/guitar-card';
 import {Guitar} from '../../types/data';
 import {getTotalPages} from '../../store/application/selectors';
-import {AppRoute, Title} from '../../constants/constants';
+import {AppRoute, Message} from '../../constants/constants';
 import {QueryPageTypes} from '../../types/params';
 import NotFound from '../not-found/not-found';
 import PageTitle from '../page-title/page-title';
+import Loading from '../loading/loading';
 
 const mapStateToProps = (state: State) => ({
   guitars: getGuitars(state),
   pagesTotal: getTotalPages(state),
+  isDataLoading: getIsLoadData(state),
 });
 
-type catalogTypeProps = {
+type Props = {
   guitars?: Guitar[],
   pagesTotal?: number,
+  isDataLoading?: boolean,
 }
 
-function Catalog({guitars, pagesTotal = 0}: catalogTypeProps): JSX.Element {
+function Catalog({guitars, pagesTotal = 0, isDataLoading}: Props): JSX.Element {
   const params = useParams<QueryPageTypes>();
   const [pageError, setPageError] = useState(false);
-  const breadcrumbs = [{to: AppRoute.CATALOG, text: Title.CATALOG}];
+  const breadcrumbs = [{to: AppRoute.CATALOG, text: Message.Catalog}];
 
   useEffect(() => {
     const id = Number(params.id);
@@ -54,14 +57,13 @@ function Catalog({guitars, pagesTotal = 0}: catalogTypeProps): JSX.Element {
         <Filters/>
         <Sort/>
 
-        <div className='cards catalog__cards'>
-          {(guitars as Guitar[]).map((guitar) => {
-            const keyValue = `${nanoid()}-guitar`;
-            return (<GuitarCard key={keyValue} guitar={guitar}/>);
-          })}
-        </div>
-
-        {pagesTotal > 0 && <Pagination/>}
+        {!isDataLoading ? <Loading/> :
+          <>
+            <div className='cards catalog__cards'>
+              {guitars && guitars.length > 0 ? (guitars as Guitar[]).map((guitar) => <GuitarCard key={`${nanoid()}-guitar`} guitar={guitar}/>): Message.NotGuitars}
+            </div>
+            {pagesTotal > 0 && <Pagination/>}
+          </>}
 
       </div>
 
@@ -70,5 +72,5 @@ function Catalog({guitars, pagesTotal = 0}: catalogTypeProps): JSX.Element {
 }
 
 export {Catalog};
-export default connect(mapStateToProps, null)(Catalog);
+export default connect(mapStateToProps)(Catalog);
 

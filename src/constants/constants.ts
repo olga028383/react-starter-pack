@@ -12,10 +12,6 @@ export const AppRoute = {
   ROOT: '/',
 };
 
-export const Title = {
-  CATALOG: 'Каталог',
-};
-
 export const SortParamApi = {
   Sort: '_sort',
   Order: '_order',
@@ -31,6 +27,13 @@ export const SortName = {
   Rating: 'rating',
 };
 
+export const FilterKey = {
+  PriceMin: 'priceMin',
+  PriceMax: 'priceMax',
+  Types: 'types',
+  NumberStrings: 'numberStrings',
+};
+
 export const OrderName = {
   Asc: 'asc',
   Desc: 'desc',
@@ -44,3 +47,15 @@ export const ONE_PAGE = 1;
 
 export const LANGUAGE = 'ru';
 
+export const DELAY = 700;
+
+export enum LoadStatus {
+  INIT = 'INIT',
+  START = 'START',
+  SUCCESS = 'SUCCESS',
+}
+
+export enum Message {
+  Catalog = 'Каталог',
+  NotGuitars = 'Нет гитар',
+}

@@ -1,6 +1,7 @@
 import {data} from './data';
 import {ActionType} from '../action';
 import {Guitar} from '../../mock/test';
+import {LoadStatus} from "../../constants/constants";
 
 describe('Reducer: data', () => {
 
@@ -10,11 +11,11 @@ describe('Reducer: data', () => {
       payload: [Guitar],
     };
 
-    expect(data({isDataLoaded: false, guitars: []}, questAction))
-      .toEqual({isDataLoaded: true, guitars: [Guitar]});
+    expect(data({loadData: LoadStatus.INIT, guitars: [], priceMin: 0, priceMax: 0}, questAction))
+      .toEqual({loadData: true, guitars: [Guitar], priceMin: 0, priceMax: 0});
 
-    expect(data({isDataLoaded: true, guitars: []}, questAction))
-      .toEqual({isDataLoaded: true, guitars: [Guitar]});
+    expect(data({loadData: LoadStatus.SUCCESS, guitars: [], priceMin: 0, priceMax: 0}, questAction))
+      .toEqual({loadData: LoadStatus.SUCCESS, guitars: [Guitar], priceMin: 0, priceMax: 0});
 
   });
 
@@ -24,11 +25,11 @@ describe('Reducer: data', () => {
       payload: [Guitar],
     };
 
-    expect(data({isDataLoaded: false, guitars: []}, isLoadAction))
-      .toEqual({isDataLoaded: true, guitars: [Guitar]});
+    expect(data({loadData: LoadStatus.INIT, guitars: [], priceMin: 0, priceMax: 0}, isLoadAction))
+      .toEqual({loadData: LoadStatus.SUCCESS, guitars: [Guitar], priceMin: 0, priceMax: 0});
 
-    expect(data({isDataLoaded: false, guitars: [Guitar]}, isLoadAction))
-      .toEqual({isDataLoaded: true, guitars: [Guitar]});
+    expect(data({loadData: LoadStatus.INIT, guitars: [Guitar], priceMin: 0, priceMax: 0}, isLoadAction))
+      .toEqual({loadData: LoadStatus.SUCCESS, guitars: [Guitar], priceMin: 0, priceMax: 0});
 
   });
 });

@@ -1,21 +1,48 @@
 import {Guitar} from '../types/data';
 import {
-  apiActionType, currentPageActionType, guitarsActionType, serverErrorActionType,
-  totalPagesActionType
+  apiActionType, clearFilterActionType, currentPageActionType, guitarsActionType, loadDataActionType,
+  numberStringsActionType,
+  orderActionType,
+  priceFilterMaxActionType,
+  priceFilterMinActionType,
+  priceInitMaxActionType,
+  priceInitMinActionType,
+  serverErrorActionType, sortActionType,
+  totalPagesActionType, typeActionType
 } from '../types/action';
 import {AxiosInstance} from 'axios';
 
 export const ActionType = {
   LOAD_GUITARS: 'data/loadGuitars',
+  SET_LOAD_DATA: 'data/loadData',
+  INIT_PRICE_MIN: 'data/initPriceMin',
+  INIT_PRICE_MAX: 'data/initPriceMax',
   SET_CURRENT_PAGE: 'application/setCurrentPage',
   SET_TOTAL_PAGES: 'application/setTotalPages',
   SET_SERVER_ERROR: 'application/setServerError',
   SET_API: 'application/setApi',
+  SET_SORT: 'order/setSort',
+  SET_ORDER: 'order/setOrder',
+  SET_PRICE_MIN: 'filter/setPriceMin',
+  SET_PRICE_MAX: 'filter/setPriceMax',
+  SET_TYPE: 'filter/setType',
+  SET_NUMBER_STRINGS: 'filter/setNumberStrings',
+  CLEAR_FILTER: 'filter/clearFilter',
 };
 
 export const loadGuitars = (guitars: Guitar[]): guitarsActionType => ({
   type: ActionType.LOAD_GUITARS,
   payload: guitars,
+});
+
+export const initPriceMin = (priceMin: number): priceInitMinActionType => ({
+  type: ActionType.INIT_PRICE_MIN,
+  payload: priceMin,
+});
+
+export const initPriceMax = (priceMax: number): priceInitMaxActionType => ({
+  type: ActionType.INIT_PRICE_MAX,
+  payload: priceMax,
 });
 
 export const setCurrentPage = (page: number): currentPageActionType => ({
@@ -38,4 +65,41 @@ export const setApi = (api: AxiosInstance): apiActionType => ({
   payload: api,
 });
 
+export const setSort = (sort: string): sortActionType => ({
+  type: ActionType.SET_SORT,
+  payload: sort,
+});
 
+export const setOrder = (order: string): orderActionType => ({
+  type: ActionType.SET_ORDER,
+  payload: order,
+});
+
+export const setPriceMin = (priceMin: number): priceFilterMinActionType => ({
+  type: ActionType.SET_PRICE_MIN,
+  payload: priceMin,
+});
+
+export const setPriceMax = (priceMax: number): priceFilterMaxActionType => ({
+  type: ActionType.SET_PRICE_MAX,
+  payload: priceMax,
+});
+
+export const setType = (type: any): typeActionType => ({
+  type: ActionType.SET_TYPE,
+  payload: type,
+});
+
+export const setNumberStrings = (numberStrings: any): numberStringsActionType => ({
+  type: ActionType.SET_NUMBER_STRINGS,
+  payload: numberStrings,
+});
+
+export const clearFilter = (): clearFilterActionType => ({
+  type: ActionType.CLEAR_FILTER,
+});
+
+export const loadData = (status: string): loadDataActionType => ({
+  type: ActionType.SET_LOAD_DATA,
+  payload: status,
+});

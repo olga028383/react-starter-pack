@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants/constants';
 import Rating from '../rating/rating';
 
-type typePropsGuitarCart = {
+type Props = {
   guitar?: any,
 }
 
-function GuitarCard({guitar}: typePropsGuitarCart ): JSX.Element {
+function GuitarCard({guitar}: Props ): JSX.Element {
   const {id, name, previewImg, price, rating}: Guitar = guitar;
   const imageFormatted = replaceImagePath(previewImg);
   return (

@@ -1,21 +1,35 @@
 import {ActionType} from '../action';
 import {dataState} from '../../types/state';
-import {guitarsActionType} from '../../types/action';
+import {LoadStatus} from '../../constants/constants';
 
 const initialState: dataState = {
   guitars: [],
-  isDataLoaded: false,
+  priceMin: 0,
+  priceMax: 0,
+  loadData: LoadStatus.INIT,
 };
 
-type dataStateActionType = guitarsActionType;
-
-const data = (state = initialState, action: dataStateActionType): dataState => {
+const data = (state = initialState, action: any): dataState => {
   switch (action.type) {
     case ActionType.LOAD_GUITARS:
       return {
         ...state,
         guitars: action.payload,
-        isDataLoaded: true,
+      };
+    case ActionType.INIT_PRICE_MIN:
+      return {
+        ...state,
+        priceMin: action.payload,
+      };
+    case ActionType.INIT_PRICE_MAX:
+      return {
+        ...state,
+        priceMax: action.payload,
+      };
+    case ActionType.SET_LOAD_DATA:
+      return {
+        ...state,
+        loadData: action.payload,
       };
     default:
       return state;

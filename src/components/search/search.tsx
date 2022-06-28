@@ -8,6 +8,8 @@ import {State} from '../../types/state';
 import {searchGuitars} from '../../store/api-actions';
 import SearchItem from './search-item/search-item';
 import {Guitar} from '../../types/data';
+import useDebounce from '../../hooks/use-debounce/use-debounce';
+import {DELAY} from '../../constants/constants';
 
 const mapStateToProps = (state: State) => ({
   api: getApi(state),
@@ -36,14 +38,18 @@ function Search({api}: SearchDetailType): JSX.Element {
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value;
-    if (!value) {
-      return;
-    }
     setSearchWord(value);
-    searchGuitars(value, api as AxiosInstance)
-      .then((guitars) => {
-        setData(guitars);
-      });
+
+    if(!value){
+      setData([]);
+    }
+
+    if(value) {
+      searchGuitars(value, api as AxiosInstance)
+        .then((guitars) => {
+          setData(guitars);
+        });
+    }
   };
 
   return (
@@ -55,7 +61,7 @@ function Search({api}: SearchDetailType): JSX.Element {
           </svg>
           <span className="visually-hidden">Начать поиск</span>
         </button>
-        <input className="form-search__input" id="search" type="text" autoComplete="off" placeholder="что вы ищите?" value={searchWord} onChange={handleInputChange}/>
+        <input className="form-search__input" id="search" type="text" autoComplete="off" placeholder="что вы ищите?" defaultValue={searchWord} onChange={useDebounce(handleInputChange, DELAY)}/>
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
       {

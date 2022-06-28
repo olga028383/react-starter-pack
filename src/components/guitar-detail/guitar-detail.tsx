@@ -7,7 +7,7 @@ import NotFound from '../not-found/not-found';
 import {QueryPageTypes} from '../../types/params';
 import {Guitar} from '../../types/data';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import {AppRoute, Title} from '../../constants/constants';
+import {AppRoute, Message} from '../../constants/constants';
 import PageTitle from '../page-title/page-title';
 import {formatPrice, replaceImagePath} from '../../utils/utils';
 import Rating from '../rating/rating';
@@ -63,7 +63,7 @@ function GuitarDetail({api}: GuitarDetailType): JSX.Element {
 
   const {name, previewImg, price, rating} = data as Guitar;
   const imageFormatted = replaceImagePath(previewImg);
-  const breadcrumbs = [{to: AppRoute.CATALOG, text: Title.CATALOG}, {to: '#', text: name}];
+  const breadcrumbs = [{to: AppRoute.CATALOG, text: Message.Catalog}, {to: '#', text: name}];
 
   const handleSetReviewCount = (countComments: number) => {
     setCountReview(Number(countComments));

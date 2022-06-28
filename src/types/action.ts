@@ -27,3 +27,51 @@ export type apiActionType = {
   payload: AxiosInstance,
 };
 
+export type priceInitMinActionType ={
+  type: typeof ActionType.INIT_PRICE_MIN,
+  payload: number,
+}
+
+export type priceInitMaxActionType ={
+  type: typeof ActionType.INIT_PRICE_MAX,
+  payload: number,
+}
+
+export type sortActionType = {
+  type: typeof ActionType.SET_SORT,
+  payload: string,
+}
+
+export type orderActionType = {
+  type: typeof ActionType.SET_ORDER,
+  payload: string,
+}
+
+export type priceFilterMinActionType = {
+  type: typeof ActionType.SET_PRICE_MIN,
+  payload: number,
+}
+
+export type priceFilterMaxActionType = {
+  type: typeof ActionType.SET_PRICE_MAX,
+  payload: number,
+}
+
+export type typeActionType = {
+  type: typeof ActionType.SET_TYPE,
+  payload: string[],
+}
+
+export type numberStringsActionType = {
+  type: typeof ActionType.SET_NUMBER_STRINGS,
+  payload: number[],
+}
+
+export type clearFilterActionType = {
+  type: typeof ActionType.CLEAR_FILTER,
+}
+
+export type loadDataActionType = {
+  type: typeof ActionType.SET_LOAD_DATA,
+  payload: string,
+}

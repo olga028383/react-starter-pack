@@ -4,7 +4,9 @@ import {AxiosInstance} from 'axios';
 
 export type dataState = {
   guitars: Guitar[],
-  isDataLoaded: boolean,
+  priceMin: number,
+  priceMax: number,
+  loadData: string,
 };
 
 export type applicationState = {
@@ -12,6 +14,18 @@ export type applicationState = {
   currentPage: number,
   totalPages: number,
   api: null | AxiosInstance,
+};
+
+export type sortState = {
+  sort: string,
+  order: string,
+};
+
+export type filterState = {
+  priceMin: number,
+  priceMax: number,
+  types: string[] | [],
+  numberStrings: Array<number | string> | [],
 };
 
 export type State = ReturnType<typeof store.getState>;

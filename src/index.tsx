@@ -8,10 +8,11 @@ import browserHistory from './browser-history';
 import {createApi} from './api';
 import reducer from './store/reducer';
 import thunk from 'redux-thunk';
-import {fetchGuitars} from './store/api-actions';
+import {fetchGuitars, fetchPrice} from './store/api-actions';
 import App from './components/app/app';
 import {setApi} from './store/action';
 import {ONE_PAGE} from './constants/constants';
+import {setStoreFromQuery} from './utils/utils';
 
 const api = createApi();
 const store = createStore(
@@ -19,8 +20,15 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
 );
 
+if(browserHistory.location.search) {
+  setStoreFromQuery(browserHistory.location.search, store);
+}
+
 store.dispatch(setApi(api));
-store.dispatch(fetchGuitars(ONE_PAGE));
+store.dispatch(fetchGuitars(ONE_PAGE, () => {
+  store.dispatch(fetchPrice(true));
+  store.dispatch(fetchPrice(false));
+}));
 
 ReactDOM.render(
   <React.StrictMode>
