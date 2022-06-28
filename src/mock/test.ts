@@ -31,4 +31,11 @@ export const Guitar = {
   comments: [ReviewTest]
 };
 
+export const FakeStore = {
+  DATA: {loadData: 'SUCCESS', guitars: [Guitar, Guitar, Guitar], priceMin: 300, priceMax: 30000},
+  APPLICATION: {serverError: '', currentPage: 1, pagesTotal: 3, api: jest.fn()},
+  SORT: {sort: '', order: ''},
+  FILTER: {types: ['electric'], numberStrings: [4], priceMin: 300, priceMax: 30000},
+};
+
 

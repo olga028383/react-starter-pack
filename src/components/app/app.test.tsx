@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import App from './app';
 import {AppRoute} from '../../constants/constants';
-import {Guitar} from '../../mock/test';
+import {Guitar, FakeStore} from '../../mock/test';
 import {fetchGuitar} from '../../store/api-actions';
 
 jest.mock('../../store/api-actions');
@@ -27,10 +27,7 @@ const renderAppComponent = (path: string) => {
   const history = createMemoryHistory();
 
   const createFakeStore = configureStore();
-  const store = createFakeStore({
-    DATA: {isDataLoaded: true, guitars: [Guitar, Guitar]},
-    APPLICATION: {serverError: '', currentPage: 1, pagesTotal: 3, api: jest.fn()},
-  });
+  const store = createFakeStore(FakeStore);
 
   const fakeApp = (
     <Provider store={store}>
@@ -49,13 +46,13 @@ describe('Application Routing', () => {
     renderAppComponent(AppRoute.ROOT);
 
     expect(screen.getByText(/Каталог товаров/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/Честер Bass/i)).toHaveLength(2);
+    expect(screen.getAllByText(/Честер Bass/i)).toHaveLength(3);
   });
 
   it('should render "Catalog" when user navigate to "/catalog"', () => {
     renderAppComponent(AppRoute.CATALOG);
     expect(screen.getByText(/Каталог товаров/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/Честер Bass/i)).toHaveLength(2);
+    expect(screen.getAllByText(/Честер Bass/i)).toHaveLength(3);
   });
 
   it('should display the description in tabs when the user navigates "/catalog/1/description"', async () => {

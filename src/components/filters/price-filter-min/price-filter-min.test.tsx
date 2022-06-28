@@ -3,14 +3,13 @@ import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
-import Sort from './sort';
 import configureStore from 'redux-mock-store';
-import {FakeStore} from '../../mock/test';
-jest.mock('../../store/api-actions');
+import {FakeStore} from '../../../mock/test';
+import PriceFilterMin from './price-filter-min';
 
-describe('Component: Sort', () => {
+describe('Component: PriceFilterMin', () => {
 
-  it('should display Sort', () => {
+  it('should display PriceFilterMin', () => {
     const history = createMemoryHistory();
 
     const createFakeStore = configureStore();
@@ -19,14 +18,13 @@ describe('Component: Sort', () => {
     const fakeApp = (
       <Provider store={store}>
         <Router history={history}>
-          <Sort/>;
+          <PriceFilterMin/>;
         </Router>
       </Provider>
     );
-    render(fakeApp);
 
-    expect(screen.getByText(/Сортировать:/i)).toBeInTheDocument();
-    expect(screen.getByText(/По цене/i)).toBeInTheDocument();
-    expect(screen.getByText(/По популярности/i)).toBeInTheDocument();
+    render(fakeApp);
+    expect(screen.getByText(/Минимальная цена/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(FakeStore.DATA.priceMin.toString())).toBeInTheDocument();
   });
 });

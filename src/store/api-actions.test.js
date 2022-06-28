@@ -1,20 +1,21 @@
 import MockAdapter from 'axios-mock-adapter';
+import configureStore from 'redux-mock-store';
 import {
   fetchGuitars,
   fetchGuitar,
   fetchComments,
-  sendComment
+  sendComment,
+  fetchPrice
 } from './api-actions';
 import {createApi} from '../api';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 import {ApiRoute} from '../constants/constants';
-import {Guitar, ReviewTest, ReviewPostTest} from '../mock/test';
+import {Guitar, ReviewTest, ReviewPostTest, FakeStore} from '../mock/test';
 
-let api = null;
-
+const api = createApi();
+const store = createStore(() => [], {}, applyMiddleware());
 describe('Async operations', () => {
-  beforeAll(() => {
-    api = createApi();
-  });
 
   it('should make a correct API call to GET /guitars', () => {
     const apiMock = new MockAdapter(api);
@@ -25,8 +26,8 @@ describe('Async operations', () => {
       .onGet(ApiRoute.Guitars)
       .reply(200, [Guitar]);
 
-    fetchGuitarsLoader(dispatch, () => {
-    }, api)
+
+    fetchGuitarsLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
       });
@@ -69,6 +70,38 @@ describe('Async operations', () => {
     return sendComment(ReviewPostTest, api)
       .then((data) => {
         expect(data).toEqual(ReviewTest);
+      });
+  });
+
+  it('should make a correct API call to GET /guitars?_order=asc&_sort=price&_limit=1', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const fetchPriceLoader = fetchPrice(true);
+
+    apiMock
+      .onGet(`${ApiRoute.Guitars}?_order=asc&_sort=price&_limit=1`)
+      .reply(200, [Guitar]);
+
+    fetchPriceLoader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it('should make a correct API call to GET /guitars?_order=desc&_sort=price&_limit=1', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const fetchPriceLoader = fetchPrice(false);
+
+    apiMock
+      .onGet(`${ApiRoute.Guitars}?_order=desc&_sort=price&_limit=1`)
+      .reply(200, [Guitar]);
+
+    fetchPriceLoader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
       });
   });
 });

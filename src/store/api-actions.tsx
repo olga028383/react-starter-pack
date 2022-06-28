@@ -32,7 +32,7 @@ export const fetchGuitars = (page: number, callback?: any): any => (dispatch: Ap
       dispatch(loadGuitars(data.filter((item: Guitar) => Object.keys(item).includes('name'))));
       dispatch(loadData(LoadStatus.SUCCESS));
 
-      if(callback) {
+      if (callback) {
         callback();
       }
     })

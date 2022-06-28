@@ -5,17 +5,14 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import Catalog from './catalog';
-import {Guitar} from '../../mock/test';
+import {FakeStore} from '../../mock/test';
 
 describe('Component: GuitarCard', () => {
   it('should display GuitarCard', () => {
     const history = createMemoryHistory();
 
     const createFakeStore = configureStore();
-    const store = createFakeStore({
-      DATA: {isDataLoaded: true, guitars: [Guitar, Guitar, Guitar]},
-      APPLICATION: {serverError: '', currentPage: 1, pagesTotal: 27},
-    });
+    const store = createFakeStore(FakeStore);
 
     render(<Provider store={store}><Router history={history}><Catalog/></Router></Provider>);
 
