@@ -56,7 +56,7 @@ describe('tests utility functions', () => {
   });
 
   it('should swap key and value', () => {
-    expect(JSON.stringify(swapParam())).toBe(JSON.stringify({price_gte: 'priceMin', price_lte: 'priceMax', stringCount: 'numberStrings', type: 'types', _sort: 'sort', _order: 'order'}));
+    expect(JSON.stringify(swapParam())).toBe(JSON.stringify({'price_gte': 'priceMin', 'price_lte': 'priceMax', stringCount: 'numberStrings', type: 'types', _sort: 'sort', _order: 'order'}));
   });
 
 });

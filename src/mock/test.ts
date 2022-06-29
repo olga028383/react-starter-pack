@@ -28,7 +28,7 @@ export const Guitar = {
   stringCount: 7,
   rating: 4,
   price: 17500,
-  comments: [ReviewTest]
+  comments: [ReviewTest],
 };
 
 export const FakeStore = {

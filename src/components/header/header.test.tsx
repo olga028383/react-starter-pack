@@ -15,11 +15,7 @@ describe('Component: Header', () => {
     const createFakeStore = configureStore();
     const store = createFakeStore(FakeStore);
 
-    render(
-      <Provider store={store}>
-        <Router history={history}>
-          <Header/>
-        </Router></Provider>);
+    render(<Provider store={store}><Router history={history}><Header/></Router></Provider>);
 
     expect(screen.getByText(/Каталог/i)).toBeInTheDocument();
     expect(screen.getByText(/Где купить/i)).toBeInTheDocument();
