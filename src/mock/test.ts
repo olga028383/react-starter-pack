@@ -32,7 +32,7 @@ export const Guitar = {
 };
 
 export const FakeStore = {
-  DATA: {loadData: 'SUCCESS', guitars: [Guitar, Guitar, Guitar], priceMin: 300, priceMax: 30000},
+  DATA: {loadData: 'SUCCESS', guitars: [Guitar, Guitar, Guitar], priceMin: 300, priceMax: 35000},
   APPLICATION: {serverError: '', currentPage: 1, pagesTotal: 3, api: jest.fn()},
   SORT: {sort: '', order: ''},
   FILTER: {types: ['electric'], numberStrings: [4], priceMin: 300, priceMax: 30000},

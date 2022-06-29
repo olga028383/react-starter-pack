@@ -7,22 +7,18 @@ import {render, screen} from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import {FakeStore, Guitar} from '../../../mock/test';
 import {fetchGuitars} from '../../../store/api-actions';
-import PriceFilterMax from './price-filter-max';
-import {ActionType, setPriceMax} from '../../../store/action';
-
+import TypeGuitar from './type-guitar';
+import {ActionType, setType} from '../../../store/action';
 
 jest.mock('../../../store/api-actions');
 jest.mock('../../../store/action');
 
-jest.useFakeTimers();
-jest.spyOn(global, 'setTimeout');
-
-const mockSetPriceMax = setPriceMax as jest.MockedFunction<typeof setPriceMax>;
+const mockSetType= setType as jest.MockedFunction<typeof setType>;
 const mockFetchGuitars = fetchGuitars as jest.MockedFunction<typeof fetchGuitars>;
 
-describe('Component: PriceFilterMax', () => {
+describe('Component: TypeGuitar', () => {
 
-  it('should display PriceFilterMax', () => {
+  it('should display TypeGuitar', () => {
     const history = createMemoryHistory();
     const createFakeStore = configureStore();
     const store = createFakeStore(FakeStore);
@@ -30,14 +26,13 @@ describe('Component: PriceFilterMax', () => {
     const fakeApp = (
       <Provider store={store}>
         <Router history={history}>
-          <PriceFilterMax/>;
+          <TypeGuitar name={'test'} code={'test'}/>;
         </Router>
       </Provider>
     );
 
     render(fakeApp);
-    expect(screen.getByText(/Максимальная цена/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(FakeStore.DATA.priceMax.toString())).toBeInTheDocument();
+    expect(screen.getByText(/test/i)).toBeInTheDocument();
   });
 
   it('should call onChange callbacks', async () => {
@@ -45,9 +40,9 @@ describe('Component: PriceFilterMax', () => {
     const createFakeStore = configureStore();
     const store = createFakeStore(FakeStore);
 
-    mockSetPriceMax.mockReturnValue({
-      type: ActionType.SET_PRICE_MAX,
-      payload: 30000,
+    mockSetType.mockReturnValue({
+      type: ActionType.SET_NUMBER_STRINGS,
+      payload: ['test'],
     });
 
     mockFetchGuitars.mockReturnValue({
@@ -58,15 +53,15 @@ describe('Component: PriceFilterMax', () => {
     const fakeApp = (
       <Provider store={store}>
         <Router history={history}>
-          <PriceFilterMax/>;
+          <TypeGuitar name={'test'} code={'test'}/>;
         </Router>
       </Provider>
     );
 
     render(fakeApp);
 
-    userEvent.type(screen.getByTestId('priceMax'), '25000');
-
-    //expect(setTimeout).toHaveBeenLastCalledWith(expect.any(setPriceMax));
+    userEvent.click(screen.getByText(/test/i));
+    expect(setType).toBeCalled();
+    expect(fetchGuitars).toBeCalled();
   });
 });
