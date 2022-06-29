@@ -8,29 +8,30 @@ import {
   fetchPrice
 } from './api-actions';
 import {createApi} from '../api';
-import thunk from 'redux-thunk';
-import { createStore, applyMiddleware } from 'redux';
 import {ApiRoute} from '../constants/constants';
-import {Guitar, ReviewTest, ReviewPostTest, FakeStore} from '../mock/test';
+import {Guitar, ReviewTest, ReviewPostTest} from '../mock/test';
 
+jest.mock('../utils/utils');
 const api = createApi();
-const store = createStore(() => [], {}, applyMiddleware());
+
 describe('Async operations', () => {
 
   it('should make a correct API call to GET /guitars', () => {
     const apiMock = new MockAdapter(api);
+    const mockStore = configureStore();
+    const store = mockStore({SORT: {sort: '', order: ''}});
+    store.getState = () => mockStore;
     const dispatch = jest.fn();
-    const fetchGuitarsLoader = fetchGuitars();
+    const fetchGuitarsLoader = fetchGuitars(1);
 
     apiMock
-      .onGet(ApiRoute.Guitars)
-      .reply(200, [Guitar]);
+      .onGet(`${ApiRoute.Guitars}?_embed=comments&_limit=9&_start=0`)
+      .reply(200, [Guitar], {'x-total-count': '27'});
 
-
-    fetchGuitarsLoader(dispatch, () => {}, api)
+    fetchGuitarsLoader(dispatch, store.getState, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-      });
+        expect(dispatch).toHaveBeenCalledTimes(4);
+      })
   });
 
   it('should make a correct API call to GET /guitars/id', () => {
@@ -96,6 +97,22 @@ describe('Async operations', () => {
 
     apiMock
       .onGet(`${ApiRoute.Guitars}?_order=desc&_sort=price&_limit=1`)
+      .reply(200, [Guitar]);
+
+    fetchPriceLoader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it('should make a correct API call to GET /guitars?_order=acc&_sort=price&_limit=1', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const fetchPriceLoader = fetchPrice(true);
+
+    apiMock
+      .onGet(`${ApiRoute.Guitars}?_order=asc&_sort=price&_limit=1`)
       .reply(200, [Guitar]);
 
     fetchPriceLoader(dispatch, () => {
