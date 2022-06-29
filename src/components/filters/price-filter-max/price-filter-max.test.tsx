@@ -10,12 +10,10 @@ import {fetchGuitars} from '../../../store/api-actions';
 import PriceFilterMax from './price-filter-max';
 import {ActionType, setPriceMax} from '../../../store/action';
 
-
 jest.mock('../../../store/api-actions');
 jest.mock('../../../store/action');
 
 jest.useFakeTimers();
-jest.spyOn(global, 'setTimeout');
 
 const mockSetPriceMax = setPriceMax as jest.MockedFunction<typeof setPriceMax>;
 const mockFetchGuitars = fetchGuitars as jest.MockedFunction<typeof fetchGuitars>;
@@ -66,6 +64,8 @@ describe('Component: PriceFilterMax', () => {
     render(fakeApp);
 
     userEvent.type(screen.getByTestId('priceMax'), '25000');
+    jest.advanceTimersByTime(1000);
     expect(setPriceMax).toBeCalled();
+    expect(fetchGuitars).toBeCalled();
   });
 });

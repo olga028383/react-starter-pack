@@ -43,7 +43,7 @@ function PriceFilterMin({priceMin = 0, priceMax = 0, filterPriceMin = 0, onPrice
   return (
     <div className="form-input">
       <label className="visually-hidden">Минимальная цена</label>
-      <input type="number" placeholder={`${priceMin}`} defaultValue={price === 0 ? '' : price} id="priceMin" name="от" onInput={useDebounce(handlePriceChange, DELAY)}/>
+      <input type="number" placeholder={`${priceMin}`} data-testid="priceMin" defaultValue={price === 0 ? '' : price} id="priceMin" name="от" onInput={useDebounce(handlePriceChange, DELAY)}/>
     </div>
   );
 }
