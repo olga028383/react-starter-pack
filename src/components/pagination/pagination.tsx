@@ -3,7 +3,7 @@ import './pagination.css';
 import {connect} from 'react-redux';
 import {useParams, Link, useHistory} from 'react-router-dom';
 import {AppDispatch, State} from '../../types/state';
-import {AppRoute, OFFSET_ONE} from '../../constants/constants';
+import {AppRoute, OFFSET_ONE, ONE_PAGE} from '../../constants/constants';
 import {getGuitars} from '../../store/data/selectors';
 import {setCurrentPage} from '../../store/action';
 import {QueryPageTypes} from '../../types/params';
@@ -55,6 +55,12 @@ function Pagination({totalPages, currentPage = FIRST_PAGE, onSetCurrentPage}: Pa
     }
 
   }, [params.id]);
+
+  useEffect(() => {
+    if(onSetCurrentPage && totalPages && currentPage > totalPages){
+      onSetCurrentPage(ONE_PAGE);
+    }
+  }, []);
 
   const handleButtonClick = (evt: MouseEvent<HTMLAnchorElement>): void => {
     evt.preventDefault();

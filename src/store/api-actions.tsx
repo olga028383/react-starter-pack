@@ -1,11 +1,11 @@
 import browserHistory from '../browser-history';
 import queryString from 'query-string';
 import {
-  ApiRoute, AppRoute, LoadStatus, ONE_PAGE, OrderName, SHOW_PAGE, SortName,
+  ApiRoute, AppRoute, LoadStatus, OrderName, SHOW_PAGE, SortName,
   SortParamApi
 } from '../constants/constants';
 import {
-  loadGuitars, setServerError, setTotalPages, initPriceMax, initPriceMin, loadData, setCurrentPage
+  loadGuitars, setServerError, setTotalPages, initPriceMax, initPriceMin, loadData
 } from './action';
 import {AxiosInstance} from 'axios';
 import {AppDispatch, State} from '../types/state';
@@ -24,10 +24,8 @@ export const fetchGuitars = (page: number, callback?: any): any => (dispatch: Ap
 
   return api.get(url)
     .then(({data, headers}) => {
-      if (history) {
-        browserHistory.push(`${AppRoute.CATALOG}?${history}`);
-        dispatch(setCurrentPage(ONE_PAGE));
-      }
+
+      browserHistory.push(`${AppRoute.CATALOG}?${history}`);
       dispatch(setTotalPages(getPagesCount(Number(headers['x-total-count']))));
       dispatch(loadGuitars(data.filter((item: Guitar) => Object.keys(item).includes('name'))));
       dispatch(loadData(LoadStatus.SUCCESS));

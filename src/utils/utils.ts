@@ -49,14 +49,14 @@ export const getQueryParam = (data: filterState | sortState, adapter: any) => {
   const params: any = {};
   const convertedData = Object.entries(data);
   convertedData.forEach((item) => {
-    if(item[1] || item[1].length > 0) {
+    if (item[1] || item[1].length > 0) {
       params[adapter[item[0]]] = item[1];
     }
   });
   return params;
 };
 
-export const swapParam = () => Object.fromEntries(Object.entries({...QueryParamsTypeFilter, ...QueryParamsTypeSort}).map(([key,value])=>[value,key]));
+export const swapParam = () => Object.fromEntries(Object.entries({...QueryParamsTypeFilter, ...QueryParamsTypeSort}).map(([key, value]) => [value, key]));
 
 export const setStoreFromQuery = (search: string, store: any) => {
   const defaultParam = swapParam();
@@ -69,12 +69,10 @@ export const setStoreFromQuery = (search: string, store: any) => {
         store.dispatch(setSort(`${param[1]}`));
         break;
       case FilterKey.NumberStrings:
-        store.dispatch(setNumberStrings(param[1]));
+        store.dispatch(setNumberStrings(typeof param[1] !== 'string' ? param[1] : [param[1]]));
         break;
       case FilterKey.Types:
-        if(param[1]) {
-          store.dispatch(setType(param[1]));
-        }
+        store.dispatch(setType(typeof param[1] !== 'string' ? param[1] : [param[1]]));
         break;
       case FilterKey.PriceMin:
         store.dispatch(setPriceMin(Number(param[1])));
