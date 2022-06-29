@@ -66,7 +66,6 @@ describe('Component: PriceFilterMax', () => {
     render(fakeApp);
 
     userEvent.type(screen.getByTestId('priceMax'), '25000');
-
-    //expect(setTimeout).toHaveBeenLastCalledWith(expect.any(setPriceMax));
+    expect(setPriceMax).toBeCalled();
   });
 });
