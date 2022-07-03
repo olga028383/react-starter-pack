@@ -13,8 +13,6 @@ import {ActionType, setPriceMin} from '../../../store/action';
 jest.mock('../../../store/api-actions');
 jest.mock('../../../store/action');
 
-jest.useFakeTimers();
-
 const mockSetPriceMin = setPriceMin as jest.MockedFunction<typeof setPriceMin>;
 const mockFetchGuitars = fetchGuitars as jest.MockedFunction<typeof fetchGuitars>;
 
@@ -65,7 +63,7 @@ describe('Component: PriceFilterMin', () => {
     render(fakeApp);
 
     userEvent.type(screen.getByTestId('priceMin'), '3000');
-    jest.advanceTimersByTime(1000);
+    userEvent.click(document.body);
     expect(setPriceMin).toBeCalled();
     expect(fetchGuitars).toBeCalled();
   });

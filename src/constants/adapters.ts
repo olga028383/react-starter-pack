@@ -1,13 +1,13 @@
 export const GuitarType = new Map([
+  ['acoustic', 'Акустическая'],
   ['electric', 'Электрогитара'],
   ['ukulele', 'Укулеле'],
-  ['acoustic', 'Акустическая'],
 ]);
 
 export const GuitarFilterType = new Map([
+  ['acoustic', 'Акустические гитары'],
   ['electric', 'Электрогитары'],
   ['ukulele', 'Укулеле'],
-  ['acoustic', 'Акустические гитары'],
 ]);
 
 export enum QueryParamsTypeFilter {

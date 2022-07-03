@@ -1,4 +1,5 @@
 import {NameSpace} from '../reducer';
+import {DEFAULT_DATA_STRINGS} from '../../constants/constants';
 
 export const getFilterPriceMin = (state: any): number => state[NameSpace.FILTER].priceMin;
 
@@ -10,18 +11,11 @@ export const getNumberStrings = (state: any): number[] => state[NameSpace.FILTER
 
 export const getAvailableNumberString = (state: any): number[] => {
   const availableStrings: number[] = [];
-  const defaultStringData: {
-    electric: number[],
-    ukulele: number[],
-    acoustic: number[],
-  } = {
-    'electric': [4, 6, 7],
-    'ukulele': [4],
-    'acoustic': [6, 7, 12],
-  };
   state[NameSpace.FILTER].types.forEach((type: 'electric'|'ukulele'|'acoustic') => {
-    const strings = defaultStringData[type];
+    const strings = DEFAULT_DATA_STRINGS[type];
     availableStrings.push(...strings);
   });
   return [...new Set(availableStrings)];
 };
+
+export const getIsActiveFilter = (state: any): boolean => Boolean(...Object.entries(state[NameSpace.FILTER]).filter((item: any) => Number(item[1]) > 0 || item[1].length > 0));

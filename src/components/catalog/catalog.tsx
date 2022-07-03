@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
+import browserHistory from '../../browser-history';
 import './catalog.css';
 import {connect} from 'react-redux';
 import {useParams} from 'react-router-dom';
@@ -12,39 +13,42 @@ import {getGuitars, getIsLoadData} from '../../store/data/selectors';
 import GuitarCard from '../guitar-card/guitar-card';
 import {Guitar} from '../../types/data';
 import {getTotalPages} from '../../store/application/selectors';
-import {AppRoute, Message} from '../../constants/constants';
+import {AppRoute, Message, ONE_PAGE} from '../../constants/constants';
 import {QueryPageTypes} from '../../types/params';
-import NotFound from '../not-found/not-found';
 import PageTitle from '../page-title/page-title';
 import Loading from '../loading/loading';
+import {getIsActiveFilter} from '../../store/filter/selectors';
 
 const mapStateToProps = (state: State) => ({
   guitars: getGuitars(state),
   pagesTotal: getTotalPages(state),
   isDataLoading: getIsLoadData(state),
+  isActiveFilter: getIsActiveFilter(state),
 });
 
 type Props = {
   guitars?: Guitar[],
   pagesTotal?: number,
   isDataLoading?: boolean,
+  isActiveFilter?: boolean,
 }
 
-function Catalog({guitars, pagesTotal = 0, isDataLoading}: Props): JSX.Element {
+function Catalog({guitars, pagesTotal = 0, isDataLoading, isActiveFilter}: Props): JSX.Element {
   const params = useParams<QueryPageTypes>();
-  const [pageError, setPageError] = useState(false);
   const breadcrumbs = [{to: AppRoute.CATALOG, text: Message.Catalog}];
 
   useEffect(() => {
     const id = Number(params.id);
-    if (Object.keys(params).length > 0 && (isNaN(id) || (id > pagesTotal))) {
-      setPageError(true);
+
+    if(Object.keys(params).length > 0 && isNaN(id)){
+      browserHistory.replace(AppRoute.CATALOG);
+      return;
+    }
+
+    if (pagesTotal >= ONE_PAGE && id > pagesTotal) {
+      browserHistory.replace(AppRoute.CATALOG);
     }
   }, [params.id, pagesTotal]);
-
-  if (pageError) {
-    return <NotFound/>;
-  }
 
   return (
     <>

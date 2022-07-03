@@ -46,13 +46,13 @@ describe('Application Routing', () => {
     renderAppComponent(AppRoute.ROOT);
 
     expect(screen.getByText(/Каталог товаров/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/Честер Bass/i)).toHaveLength(3);
+    expect(screen.getAllByText(/Честер Bass/i)).toHaveLength(6);
   });
 
   it('should render "Catalog" when user navigate to "/catalog"', () => {
     renderAppComponent(AppRoute.CATALOG);
     expect(screen.getByText(/Каталог товаров/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/Честер Bass/i)).toHaveLength(3);
+    expect(screen.getAllByText(/Честер Bass/i)).toHaveLength(6);
   });
 
   it('should display the description in tabs when the user navigates "/catalog/1/description"', async () => {

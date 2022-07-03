@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import browserHistory from '../../browser-history';
 import './filters.css';
 import {nanoid} from 'nanoid';
 import TypeGuitar from './type-guitar/type-guitar';
@@ -7,24 +8,38 @@ import NumberStrings from './number-strings/number-strings';
 import {GuitarFilterType} from '../../constants/adapters';
 import PriceFilterMin from './price-filter-min/price-filter-min';
 import PriceFilterMax from './price-filter-max/price-filter-max';
-import {fetchGuitars} from '../../store/api-actions';
-import {clearFilter} from '../../store/action';
-import {AppDispatch} from '../../types/state';
-import {ONE_PAGE} from '../../constants/constants';
-
-const numberStringsData = [4, 6, 7, 12];
+import {fetchGuitars, fetchPrice} from '../../store/api-actions';
+import {clearFilter, setCurrentPage} from '../../store/action';
+import {AppDispatch, State} from '../../types/state';
+import {ONE_PAGE, STRINGS_DATA, AppRoute} from '../../constants/constants';
+import {getIsActiveFilter} from '../../store/filter/selectors';
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onClearFilter: () => {
     dispatch(clearFilter());
-    dispatch(fetchGuitars(ONE_PAGE));
+    setCurrentPage(ONE_PAGE);
+    browserHistory.replace(AppRoute.CATALOG);
+    dispatch(fetchGuitars(ONE_PAGE, () => {
+      dispatch(fetchPrice(true));
+      dispatch(fetchPrice(false));
+    }));
   },
 });
 
+const mapStateToProps = (state: State) => ({
+  isActiveFilter: getIsActiveFilter(state),
+});
+
 type Props ={
-  onClearFilter?: () => void
+  onClearFilter?: () => void,
+  isActiveFilter?: boolean,
 }
-function Filters({onClearFilter}: Props): JSX.Element {
+function Filters({onClearFilter, isActiveFilter = false}: Props): JSX.Element {
+  const handleClearFilterClick = () => {
+    if(isActiveFilter && onClearFilter) {
+      onClearFilter();
+    }
+  };
   return (
     <form className="catalog-filter">
       <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
@@ -42,13 +57,13 @@ function Filters({onClearFilter}: Props): JSX.Element {
       </fieldset>
       <fieldset className="catalog-filter__block">
         <legend className="catalog-filter__block-title">Количество струн</legend>
-        {numberStringsData.map((item) => <NumberStrings key={`${nanoid()}-strings`} name={item}/>)}
+        {STRINGS_DATA.map((item) => <NumberStrings key={`${nanoid()}-strings`} name={item} />)}
       </fieldset>
-      <button className="catalog-filter__reset-btn button button--black-border button--medium" type="reset" onClick={onClearFilter}>Очистить</button>
+      <button className="catalog-filter__reset-btn button button--black-border button--medium" type="reset" onClick={handleClearFilterClick}>Очистить</button>
     </form>
 
   );
 }
 
 export {Filters};
-export default connect(null, mapDispatchToProps)(Filters);
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

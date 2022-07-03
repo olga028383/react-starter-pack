@@ -4,10 +4,10 @@ import {AppDispatch, State} from '../../../types/state';
 import {getFilterPriceMin} from '../../../store/filter/selectors';
 import {setPriceMin} from '../../../store/action';
 import {getPriceMax, getPriceMin} from '../../../store/data/selectors';
-import useDebounce from '../../../hooks/use-debounce/use-debounce';
 import {usePriceFilter} from '../../../hooks/use-price-filter/use-price-filter';
-import {DELAY, ONE_PAGE} from '../../../constants/constants';
+import {ONE_PAGE} from '../../../constants/constants';
 import {fetchGuitars} from '../../../store/api-actions';
+import {checkPrice, getPriceParam} from '../../../utils/utils';
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onPriceMin: (price: number) => {
@@ -22,13 +22,6 @@ const mapStateToProps = (state: State) => ({
   filterPriceMin: getFilterPriceMin(state),
 });
 
-const checkCurrentValue = (currentPrice: number, min: number | undefined, max: number | undefined) => {
-  if (!min || !max) {
-    return false;
-  }
-  return currentPrice < min || currentPrice > max;
-};
-
 type Props = {
   priceMin?: number,
   priceMax?: number,
@@ -38,12 +31,12 @@ type Props = {
 
 function PriceFilterMin({priceMin = 0, priceMax = 0, filterPriceMin = 0, onPriceMin}: Props): JSX.Element {
 
-  const {price, handlePriceChange} = usePriceFilter(priceMin, filterPriceMin, onPriceMin, (currentPrice: number) => checkCurrentValue(currentPrice, priceMin, priceMax));
+  const {price, handlePriceBlur, handlePriceInput} = usePriceFilter(priceMin, filterPriceMin, onPriceMin,()=>checkPrice(price, priceMin, priceMax), () => getPriceParam('price_gte'));
 
   return (
     <div className="form-input">
       <label className="visually-hidden">Минимальная цена</label>
-      <input type="number" placeholder={`${priceMin}`} data-testid="priceMin" defaultValue={price === 0 ? '' : price} id="priceMin" name="от" onInput={useDebounce(handlePriceChange, DELAY)}/>
+      <input type="number" placeholder={`${priceMin}`} data-testid="priceMin" defaultValue={price === 0 ? '' : price} id="priceMin" name="от" onBlur={handlePriceBlur} onInput={handlePriceInput}/>
     </div>
   );
 }

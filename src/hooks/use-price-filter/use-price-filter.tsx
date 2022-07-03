@@ -1,33 +1,40 @@
 import {ChangeEvent, useState, useEffect} from 'react';
 
-export const usePriceFilter = (defaultPrice: number, filterPrice: number, onPrice: any, checkValue: (price: number) => boolean) => {
-  const [price, setPrice] = useState(filterPrice);
+export const usePriceFilter = (defaultPrice: number, currentPrice: number, onPrice: any, checkPrice: any, getPriceQueryValue: any) => {
+  const [price, setPrice] = useState(currentPrice);
 
-  const handlePriceChange = (evt: ChangeEvent<HTMLInputElement>) => {
-
-    if (onPrice === undefined) {
-      return;
-    }
-
+  const handlePriceBlur = (evt: ChangeEvent<HTMLInputElement>) => {
     const target = evt.target as HTMLInputElement;
-    const currentPrice = Number(target.value);
 
-    if (checkValue(currentPrice)) {
-      onPrice(Number(defaultPrice));
-      target.value = `${defaultPrice}`;
+    if (onPrice === undefined || getPriceQueryValue() === target.value) {
       return;
     }
 
-    onPrice(currentPrice);
+    if (checkPrice()) {
+      onPrice(price);
+      return;
+    }
 
+    target.value = '';
+    setPrice(0);
+
+    if(getPriceQueryValue() !== null && getPriceQueryValue() !== target.value) {
+      onPrice(0);
+    }
+  };
+
+  const handlePriceInput = (evt: ChangeEvent<HTMLInputElement>) => {
+    const target = evt.target as HTMLInputElement;
+    setPrice(Math.abs(Number(target.value)));
   };
 
   useEffect(() => {
-    setPrice(Number(filterPrice));
-  }, [filterPrice]);
+    setPrice(Number(currentPrice));
+  }, [currentPrice]);
 
   return {
     price,
-    handlePriceChange,
+    handlePriceBlur,
+    handlePriceInput,
   };
 };

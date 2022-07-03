@@ -76,6 +76,9 @@ describe('Async operations', () => {
 
   it('should make a correct API call to GET /guitars?_order=asc&_sort=price&_limit=1', () => {
     const apiMock = new MockAdapter(api);
+    const mockStore = configureStore();
+    const store = mockStore({FILTER: {types: [], numberStrings: [], priceMin: 0, priceMax: 0}});
+    store.getState = () => mockStore;
     const dispatch = jest.fn();
     const fetchPriceLoader = fetchPrice(true);
 
@@ -83,15 +86,17 @@ describe('Async operations', () => {
       .onGet(`${ApiRoute.Guitars}?_order=asc&_sort=price&_limit=1`)
       .reply(200, [Guitar]);
 
-    fetchPriceLoader(dispatch, () => {
-    }, api)
+    fetchPriceLoader(dispatch, store.getState, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
       });
   });
 
-  it('should make a correct API call to GET /guitars?_order=desc&_sort=price&_limit=1', () => {
+  it('should make a correct API call to GET GET price max', () => {
     const apiMock = new MockAdapter(api);
+    const mockStore = configureStore();
+    const store = mockStore({FILTER: {types: [], numberStrings: [], priceMin: 0, priceMax: 0}});
+    store.getState = () => mockStore;
     const dispatch = jest.fn();
     const fetchPriceLoader = fetchPrice(false);
 
@@ -99,15 +104,17 @@ describe('Async operations', () => {
       .onGet(`${ApiRoute.Guitars}?_order=desc&_sort=price&_limit=1`)
       .reply(200, [Guitar]);
 
-    fetchPriceLoader(dispatch, () => {
-    }, api)
+    fetchPriceLoader(dispatch, store.getState, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
       });
   });
 
-  it('should make a correct API call to GET /guitars?_order=acc&_sort=price&_limit=1', () => {
+  it('should make a correct API call to GET price min', () => {
     const apiMock = new MockAdapter(api);
+    const mockStore = configureStore();
+    const store = mockStore({FILTER: {types: [], numberStrings: [], priceMin: 0, priceMax: 0}});
+    store.getState = () => mockStore;
     const dispatch = jest.fn();
     const fetchPriceLoader = fetchPrice(true);
 
@@ -115,8 +122,7 @@ describe('Async operations', () => {
       .onGet(`${ApiRoute.Guitars}?_order=asc&_sort=price&_limit=1`)
       .reply(200, [Guitar]);
 
-    fetchPriceLoader(dispatch, () => {
-    }, api)
+    fetchPriceLoader(dispatch, store.getState, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
       });

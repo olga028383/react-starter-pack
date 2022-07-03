@@ -10,8 +10,8 @@ type SearchItemType = {
 function SearchItem({guitar, handleLinkClick}: SearchItemType ): JSX.Element {
   const {id, name} = guitar;
   return (
-    <li className="form-search__select-item" tabIndex={0}>
-      <Link className="form-search__select-link" to={`${AppRoute.PRODUCT}/${id}`} onClick={handleLinkClick} onKeyPress={handleLinkClick}>{name}</Link>
+    <li className="form-search__select-item">
+      <Link className="form-search__select-link"  to={`${AppRoute.PRODUCT}/${id}`} onClick={handleLinkClick} onKeyPress={handleLinkClick}>{name}</Link>
     </li>
   );
 }

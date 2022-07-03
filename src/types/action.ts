@@ -75,3 +75,13 @@ export type loadDataActionType = {
   type: typeof ActionType.SET_LOAD_DATA,
   payload: string,
 }
+
+export type searchWordActionType = {
+  type: typeof ActionType.SET_SEARCH_WORD,
+  payload: string,
+}
+
+export type searchGuitarsActionType = {
+  type: typeof ActionType.SET_SEARCH_GUITARS,
+  payload: Guitar[],
+};

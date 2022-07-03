@@ -21,6 +21,11 @@ export type sortState = {
   order: string,
 };
 
+export type searchState = {
+  searchWord: string,
+  guitars: Guitar[],
+};
+
 export type filterState = {
   priceMin: number,
   priceMax: number,

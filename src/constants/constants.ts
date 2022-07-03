@@ -49,6 +49,8 @@ export const LANGUAGE = 'ru';
 
 export const DELAY = 700;
 
+export const STRINGS_DATA = [4, 6, 7, 12];
+
 export enum LoadStatus {
   INIT = 'INIT',
   START = 'START',
@@ -59,3 +61,9 @@ export enum Message {
   Catalog = 'Каталог',
   NotGuitars = 'Нет гитар',
 }
+
+export const DEFAULT_DATA_STRINGS = {
+  'electric': [4, 6, 7],
+  'ukulele': [4],
+  'acoustic': [6, 7, 12],
+};

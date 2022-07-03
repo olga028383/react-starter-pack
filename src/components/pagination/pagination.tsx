@@ -53,7 +53,6 @@ function Pagination({totalPages, currentPage = FIRST_PAGE, onSetCurrentPage}: Pa
         onSetCurrentPage(pageNum);
       }
     }
-
   }, [params.id]);
 
   useEffect(() => {

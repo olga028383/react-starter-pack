@@ -10,11 +10,14 @@ import Search from './search';
 import {createApi} from '../../api';
 import {FakeStore, Guitar} from '../../mock/test';
 import {searchGuitars} from '../../store/api-actions';
+import {setSearchWord, ActionType} from '../../store/action';
+
 
 jest.mock('../../store/api-actions');
 jest.mock('../../store/action');
 
 const mockSearchGuitars = searchGuitars as jest.MockedFunction<typeof searchGuitars>;
+const mockSetSearchWord = setSearchWord as jest.MockedFunction<typeof setSearchWord>;
 
 const api = createApi();
 const middlewares = [thunk.withExtraArgument(api)];
@@ -41,6 +44,11 @@ describe('Component: Search', () => {
 
   it('should call onChange', async() => {
     mockSearchGuitars.mockReturnValue(Promise.resolve([Guitar, Guitar]));
+    mockSetSearchWord.mockReturnValue({
+      type: ActionType.SET_SEARCH_WORD,
+      payload: 'Че',
+    });
+
     const history = createMemoryHistory();
     const store = mockStore(FakeStore);
 
@@ -55,6 +63,6 @@ describe('Component: Search', () => {
 
     const searchInput = screen.getByPlaceholderText(/что вы ищите/);
     userEvent.type(searchInput, 'Че');
-    expect(await screen.findAllByText(/Честер Bass/i)).toHaveLength(2);
+    expect(await screen.findAllByText(/Честер Bass/i)).toHaveLength(3);
   });
 });

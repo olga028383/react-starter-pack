@@ -30,6 +30,7 @@ store.dispatch(fetchGuitars(ONE_PAGE, () => {
   store.dispatch(fetchPrice(false));
 }));
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

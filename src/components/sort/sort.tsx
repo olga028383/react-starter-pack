@@ -1,4 +1,4 @@
-import React, {MouseEvent} from 'react';
+import React, {MouseEvent, useEffect} from 'react';
 import {connect} from 'react-redux';
 import './sort.css';
 import {AppDispatch, State} from '../../types/state';
@@ -10,10 +10,12 @@ import {getOrder, getSort} from '../../store/sort/selectors';
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onSetSort: (sort: string) => {
     dispatch(setSort(sort));
-    dispatch(fetchGuitars(ONE_PAGE));
   },
   onSetOrder: (order: string) => {
     dispatch(setOrder(order));
+
+  },
+  onFetchGuitars: () => {
     dispatch(fetchGuitars(ONE_PAGE));
   },
 });
@@ -28,17 +30,21 @@ const getActiveClass = (param: string | undefined, value: string, activeClass: s
 type SortType = {
   onSetSort?: (sort: string) => void,
   onSetOrder?: (order: string) => void,
+  onFetchGuitars?: () => void,
   sort?: string,
   order?: string,
 }
 
-function Sort({sort, order, onSetSort, onSetOrder}: SortType): JSX.Element {
+function Sort({sort, order, onSetSort, onSetOrder, onFetchGuitars}: SortType): JSX.Element {
   const handleButtonClickSort = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     const target = evt.target as HTMLElement;
 
     if (target && target.dataset.sort && onSetSort) {
       onSetSort(target.dataset.sort);
+    }
+    if(!order && onSetOrder){
+      onSetOrder(OrderName.Asc);
     }
   };
 
@@ -49,11 +55,22 @@ function Sort({sort, order, onSetSort, onSetOrder}: SortType): JSX.Element {
     if (target && target.dataset.order && onSetOrder) {
       onSetOrder(target.dataset.order);
     }
+  };
 
-    if (!sort && onSetSort) {
+  useEffect(() => {
+    if(!onSetOrder || !onSetSort || !onFetchGuitars){
+      return;
+    }
+
+    if(order && !sort){
       onSetSort(SortName.Price);
     }
-  };
+
+    if(sort && order){
+      onFetchGuitars();
+    }
+
+  }, [sort, order]);
 
   return (
     <div className="catalog-sort">

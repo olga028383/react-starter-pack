@@ -6,7 +6,7 @@ import {
   priceFilterMaxActionType,
   priceFilterMinActionType,
   priceInitMaxActionType,
-  priceInitMinActionType,
+  priceInitMinActionType, searchGuitarsActionType, searchWordActionType,
   serverErrorActionType, sortActionType,
   totalPagesActionType, typeActionType
 } from '../types/action';
@@ -28,6 +28,9 @@ export const ActionType = {
   SET_TYPE: 'filter/setType',
   SET_NUMBER_STRINGS: 'filter/setNumberStrings',
   CLEAR_FILTER: 'filter/clearFilter',
+  SET_SEARCH_WORD: 'search/setSearchWord',
+  SET_SEARCH_GUITARS: 'search/setSearchGuitars',
+  CLEAR_SEARCH_GUITARS: 'search/clearSearchGuitars',
 };
 
 export const loadGuitars = (guitars: Guitar[]): guitarsActionType => ({
@@ -102,4 +105,18 @@ export const clearFilter = (): clearFilterActionType => ({
 export const loadData = (status: string): loadDataActionType => ({
   type: ActionType.SET_LOAD_DATA,
   payload: status,
+});
+
+export const setSearchWord = (word: string): searchWordActionType => ({
+  type: ActionType.SET_SEARCH_WORD,
+  payload: word,
+});
+
+export const setSearchGuitars = (guitars: Guitar[]): searchGuitarsActionType => ({
+  type: ActionType.SET_SEARCH_GUITARS,
+  payload: guitars,
+});
+
+export const clearSearchGuitars = ()=> ({
+  type: ActionType.CLEAR_SEARCH_GUITARS,
 });

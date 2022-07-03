@@ -74,19 +74,16 @@ describe('Component: Sort', () => {
 
     userEvent.click(screen.getByText(/по цене/i));
     expect(setSort).toBeCalled();
-    expect(fetchGuitars).toBeCalled();
 
     userEvent.click(screen.getByText(/по популярности/i));
     expect(setSort).toBeCalled();
-    expect(fetchGuitars).toBeCalled();
 
     userEvent.click(screen.getByLabelText(/по убыванию/i));
     expect(setOrder).toBeCalled();
-    expect(fetchGuitars).toBeCalled();
 
     userEvent.click(screen.getByLabelText(/по возрастанию/i));
     expect(setOrder).toBeCalled();
-    expect(fetchGuitars).toBeCalled();
+
   });
 
 });
