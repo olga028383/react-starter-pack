@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, MouseEvent} from 'react';
 import './guitar-detail.css';
 import {connect} from 'react-redux';
-import {useParams} from 'react-router-dom';
+import browserHistory from '../../browser-history';
+import {Link, useParams} from 'react-router-dom';
 import Loading from '../loading/loading';
 import NotFound from '../not-found/not-found';
 import {QueryPageTypes} from '../../types/params';
@@ -17,17 +18,22 @@ import {fetchGuitar} from '../../store/api-actions';
 import {AxiosInstance} from 'axios';
 import {getApi} from '../../store/application/selectors';
 import {State} from '../../types/state';
+import Modal from '../modal/modal';
+import AddCart from '../add-cart/add-cart';
+import AddCartSuccess from '../add-cart/add-cart-success/add-cart-success';
 
 const mapStateToProps = (state: State) => ({
   api: getApi(state),
 });
 
-type GuitarDetailType = {
+type Props = {
   api?: AxiosInstance
 }
 
-function GuitarDetail({api}: GuitarDetailType): JSX.Element {
+function GuitarDetail({api}: Props): JSX.Element {
   const params = useParams<QueryPageTypes>();
+  const [modalActive, setModalActive] = useState(false);
+  const [modalSuccessActive, setModalSuccessActive] = useState(false);
   const [data, setData] = useState({});
   const [countReview, setCountReview] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -69,6 +75,11 @@ function GuitarDetail({api}: GuitarDetailType): JSX.Element {
     setCountReview(Number(countComments));
   };
 
+  const handleBuyClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+    setModalActive(true);
+  };
+
   return (
     <>
 
@@ -88,12 +99,19 @@ function GuitarDetail({api}: GuitarDetailType): JSX.Element {
         <div className="product-container__price-wrapper">
           <p className="product-container__price-info product-container__price-info--title">Цена:</p>
           <p className="product-container__price-info product-container__price-info--value">{formatPrice(price)}</p>
-          <a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
+          <Link className="button button--red button--big product-container__button" to="#" onClick={handleBuyClick}>Добавить в корзину</Link>
         </div>
       </div>
 
       <Reviews guitar={data as Guitar} handleSetReviewCount={handleSetReviewCount}/>
 
+      <Modal active={modalActive} setActive={setModalActive} additionalClass="modal-cart--add">
+        <AddCart guitar={data as Guitar} setModalSuccessActive={() => setModalSuccessActive(true)} />
+      </Modal>
+
+      <Modal active={modalSuccessActive} setActive={setModalSuccessActive} additionalClass="modal--success">
+        <AddCartSuccess setModalActive={() => setModalActive(false)} setModalSuccessActive={() => {setModalSuccessActive(false); browserHistory.replace(AppRoute.CATALOG);}}/>
+      </Modal>
     </>
   );
 }

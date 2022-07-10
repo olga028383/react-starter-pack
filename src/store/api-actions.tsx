@@ -4,7 +4,7 @@ import {
   ApiRoute, LoadStatus, OrderName, SHOW_PAGE, SortName
 } from '../constants/constants';
 import {
-  loadGuitars, setServerError, setTotalPages, initPriceMax, initPriceMin, loadData, setSearchGuitars
+  loadGuitars, setServerError, setTotalPages, initPriceMax, initPriceMin, loadData, setSearchGuitars, setSale, setCoupon
 } from './action';
 import {AxiosInstance} from 'axios';
 import {AppDispatch} from '../types/state';
@@ -71,4 +71,13 @@ export const fetchComments = (guitarId: string, api: AxiosInstance): Promise<Rev
 export const sendComment = (comment: ReviewPost, api: AxiosInstance): Promise<Review> => (
   api.post(ApiRoute.Comments, comment)
     .then(({data}) => data)
+);
+
+export const sendCoupon = (coupon: string): any => (dispatch: AppDispatch, getState: any, api: AxiosInstance) => (
+  api.post(ApiRoute.Coupons, {coupon: coupon})
+    .then(({data}) => {
+      dispatch(setSale(data));
+      dispatch(setCoupon(coupon));
+    })
+    .catch((err) => dispatch(setServerError(err.message)))
 );

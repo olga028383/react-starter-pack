@@ -6,7 +6,7 @@ export const getLoadData = (state: any): boolean => state[NameSpace.DATA].loadDa
 
 export const getIsLoadData = (state: any): boolean => state[NameSpace.DATA].loadData === LoadStatus.SUCCESS;
 
-export const getGuitars = (state: any): Guitar[] => state[NameSpace.DATA].guitars;
+export const getGuitars = (state: any): Guitar[] =>  state[NameSpace.DATA].guitars;
 
 export const getPriceMin = (state: any): number => state[NameSpace.DATA].priceMin;
 

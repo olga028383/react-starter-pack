@@ -20,6 +20,7 @@ export type Guitar = {
   rating: number,
   price: number,
   comments?: Review[],
+  countInCart?: number,
 };
 
 export type ReviewPost = {

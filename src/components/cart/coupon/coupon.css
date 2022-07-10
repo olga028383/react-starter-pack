@@ -1,0 +1,129 @@
+
+.coupon {
+  display: flex;
+  flex-direction: column;
+}
+
+.coupon__form {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  width: 100%;
+}
+
+.coupon__input {
+  width: 180px;
+}
+
+.coupon__input input {
+  flex: 0 0 0;
+
+  width: 100%;
+  height: 40px;
+  padding-right: 9px;
+
+  font-size: 14px;
+  line-height: 15px;
+
+  color: #000000;
+  border: 2px solid #dddada;
+  border-radius: 2px;
+
+  -webkit-transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease;
+  text-align: center;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.coupon__input input::-webkit-input-placeholder {
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+
+  -webkit-transform: translate3d(0, -2px, 0);
+  transform: translate3d(0, -2px, 0);
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.coupon__input input::-moz-placeholder {
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+
+  transform: translate3d(0, -2px, 0);
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.coupon__input input:-ms-input-placeholder {
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+
+  transform: translate3d(0, -2px, 0);
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.coupon__input input::-ms-input-placeholder {
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+
+  transform: translate3d(0, -2px, 0);
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.coupon__input input::placeholder {
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+
+  -webkit-transform: translate3d(0, -2px, 0);
+  transform: translate3d(0, -2px, 0);
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.coupon__input input:hover {
+  border-color: #545454;
+}
+
+.coupon__title {
+  width: 100%;
+  margin: 4px 0 9px;
+  padding: 0;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+
+  letter-spacing: 0.05em;
+}
+
+.coupon__info {
+  width: 100%;
+  margin: 0 0 20px;
+
+  font-size: 14px;
+  line-height: 15px;
+
+  color: #000000;
+
+  letter-spacing: 0.05em;
+}
+
+.coupon__button {
+  min-width: 180px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  border-radius: 0 2px 2px 0;
+
+  letter-spacing: 0.05em;
+}
+

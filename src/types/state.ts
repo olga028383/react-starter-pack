@@ -26,6 +26,13 @@ export type searchState = {
   guitars: Guitar[],
 };
 
+export type cartState = {
+  coupon: null | string,
+  guitars: Guitar[],
+  countGuitars: number,
+  sale: number,
+};
+
 export type filterState = {
   priceMin: number,
   priceMax: number,

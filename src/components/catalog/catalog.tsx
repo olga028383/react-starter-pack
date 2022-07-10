@@ -3,37 +3,30 @@ import browserHistory from '../../browser-history';
 import './catalog.css';
 import {connect} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import {nanoid} from 'nanoid';
 import Filters from '../filters/filters';
 import Sort from '../sort/sort';
 import Pagination from '../pagination/pagination';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import {State} from '../../types/state';
-import {getGuitars, getIsLoadData} from '../../store/data/selectors';
-import GuitarCard from '../guitar-card/guitar-card';
-import {Guitar} from '../../types/data';
 import {getTotalPages} from '../../store/application/selectors';
 import {AppRoute, Message, ONE_PAGE} from '../../constants/constants';
 import {QueryPageTypes} from '../../types/params';
 import PageTitle from '../page-title/page-title';
 import Loading from '../loading/loading';
-import {getIsActiveFilter} from '../../store/filter/selectors';
+import CatalogCards from '../catalog-cards/catalog-cards';
+import {getIsLoadData} from '../../store/data/selectors';
 
 const mapStateToProps = (state: State) => ({
-  guitars: getGuitars(state),
   pagesTotal: getTotalPages(state),
   isDataLoading: getIsLoadData(state),
-  isActiveFilter: getIsActiveFilter(state),
 });
 
 type Props = {
-  guitars?: Guitar[],
   pagesTotal?: number,
   isDataLoading?: boolean,
-  isActiveFilter?: boolean,
 }
 
-function Catalog({guitars, pagesTotal = 0, isDataLoading, isActiveFilter}: Props): JSX.Element {
+function Catalog({pagesTotal = 0, isDataLoading}: Props): JSX.Element {
   const params = useParams<QueryPageTypes>();
   const breadcrumbs = [{to: AppRoute.CATALOG, text: Message.Catalog}];
 
@@ -63,9 +56,7 @@ function Catalog({guitars, pagesTotal = 0, isDataLoading, isActiveFilter}: Props
 
         {!isDataLoading ? <Loading/> :
           <>
-            <div className='cards catalog__cards'>
-              {guitars && guitars.length > 0 ? (guitars as Guitar[]).map((guitar) => <GuitarCard key={`${nanoid()}-guitar`} guitar={guitar}/>): Message.NotGuitars}
-            </div>
+            <CatalogCards />
             {pagesTotal > 0 && <Pagination/>}
           </>}
 

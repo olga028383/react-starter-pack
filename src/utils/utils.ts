@@ -4,6 +4,7 @@ import {LANGUAGE, SHOW_PAGE, SortKey, FilterKey, SortName, OrderName, STRINGS_DA
 import {filterState, sortState} from '../types/state';
 import {QueryParamsTypeFilter, QueryParamsTypeSort} from '../constants/adapters';
 import {setNumberStrings, setOrder, setPriceMax, setPriceMin, setSort, setType} from '../store/action';
+import {Guitar} from '../types/data';
 
 export const replaceImagePath = (src: string): { winPath: string, macPath: string } => {
   const DataForReplace = {
@@ -77,7 +78,7 @@ export const checkPriceParam = (param: any) => isNaN(Number(param));
 export const checkType = (param: any) => {
   const TYPE_DATA = ['acoustic', 'electric', 'ukulele'];
 
-  if(typeof param === 'string' && TYPE_DATA.includes(param)){
+  if (typeof param === 'string' && TYPE_DATA.includes(param)) {
     return true;
   }
   const data = param.filter((value: any) => TYPE_DATA.includes(value));
@@ -85,7 +86,7 @@ export const checkType = (param: any) => {
 };
 
 export const checkNumberStrings = (param: any) => {
-  if(typeof Number(param) === 'number' && STRINGS_DATA.includes(Number(param))){
+  if (typeof Number(param) === 'number' && STRINGS_DATA.includes(Number(param))) {
     return true;
   }
   const data = param.filter((value: any) => STRINGS_DATA.includes(Number(value)));
@@ -101,41 +102,75 @@ export const setStoreFromQuery = (search: string, store: any) => {
   Object.entries(locationParam).forEach((param) => {
     switch (defaultParam[param[0]]) {
       case SortKey.Order:
-        if(checkOrder(param[1])){
+        if (checkOrder(param[1])) {
           filterParam[SortKey.Order] = setOrder(`${param[1]}`);
         }
         break;
       case SortKey.Sort:
-        if(checkSort(param[1])){
+        if (checkSort(param[1])) {
           filterParam[SortKey.Sort] = setSort(`${param[1]}`);
         }
         break;
       case FilterKey.NumberStrings:
-        if(checkNumberStrings(param[1])){
+        if (checkNumberStrings(param[1])) {
           filterParam[FilterKey.NumberStrings] = setNumberStrings(typeof param[1] !== 'string' && param[1] !== null ? param[1].map((item) => Number(item)) : [Number(param[1])]);
         }
         break;
       case FilterKey.Types:
-        if(checkType(param[1])) {
+        if (checkType(param[1])) {
           filterParam[FilterKey.Types] = setType(typeof param[1] !== 'string' ? param[1] : [param[1]]);
         }
         break;
       case FilterKey.PriceMin:
-        if(!checkPriceParam(param[1])) {
+        if (!checkPriceParam(param[1])) {
           filterParam[FilterKey.PriceMin] = setPriceMin(Number(param[1]));
         }
         break;
       case FilterKey.PriceMax:
-        if(!checkPriceParam(param[1])) {
+        if (!checkPriceParam(param[1])) {
           filterParam[FilterKey.PriceMax] = setPriceMax(Number(param[1]));
         }
         break;
     }
   });
-  if(getLengthObject(filterParam) === getLengthObject(locationParam)){
+  if (getLengthObject(filterParam) === getLengthObject(locationParam)) {
     Object.values(filterParam).forEach((data: any) => {
       store.dispatch(data);
     });
   }
 };
 
+export const changeCountProductInCart = (guitars: Guitar[], guitar: Guitar, count = 0): Guitar[] => {
+  const guitarsInCart = guitars;
+  const index = guitarsInCart.findIndex((item) => item.id === guitar.id);
+  const guitarInCart = guitarsInCart[index];
+
+  if (count === -1) {
+    guitarsInCart.splice(index, 1);
+    return guitarsInCart;
+  }
+
+  if (!count && guitarInCart !== undefined && guitarInCart.countInCart) {
+    guitarInCart.countInCart = guitarInCart.countInCart + 1;
+    return guitarsInCart;
+  }
+
+  if (count > 0 && guitarInCart !== undefined) {
+    guitarInCart.countInCart = count;
+    return guitarsInCart;
+  }
+
+  if (!count) {
+    guitarsInCart.push(Object.assign(guitar, {countInCart: 1}));
+  }
+
+  return guitarsInCart;
+};
+
+export const checkGuitarInCart = (cartGuitars: Guitar[], guitar: Guitar): boolean => cartGuitars.filter((itemCart: Guitar) => guitar.id === itemCart.id).length > 0;
+
+export const getCountInCart = (guitars: Guitar[]): number => guitars.map((item) => item.countInCart).reduce((previousValue: any, currentValue: any) => previousValue + currentValue, 0);
+
+export const getSumInCart = (guitars: Guitar[]): number => guitars.map((item: Guitar) => item.price * ((item !== undefined && item.countInCart) ? item.countInCart : 1)).reduce((previousValue: any, currentValue: any) => previousValue + currentValue, 0);
+
+export const getSale = (percent: number, price: number): number => percent ? price / 100 * percent : 0;

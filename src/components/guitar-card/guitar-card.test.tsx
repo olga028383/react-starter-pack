@@ -15,7 +15,7 @@ describe('Component: GuitarCard', () => {
     const createFakeStore = configureStore();
     const store = createFakeStore(FakeStore);
 
-    render( <Provider store={store}><Router history={history}><GuitarCard guitar={Guitar}/></Router></Provider>);
+    render( <Provider store={store}><Router history={history}><GuitarCard guitar={Guitar} onBuyClick={jest.fn()} /></Router></Provider>);
 
     expect(screen.getByText(/Честер Bass/i)).toBeInTheDocument();
     expect(screen.getByText(/17 500/i)).toBeInTheDocument();

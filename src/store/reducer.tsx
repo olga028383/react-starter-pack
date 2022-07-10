@@ -4,6 +4,7 @@ import {data} from './data/data';
 import {sort} from './sort/sort';
 import {filter} from './filter/filter';
 import {search} from './search/search';
+import {cart} from './cart/cart';
 
 export const NameSpace = {
   DATA: 'DATA',
@@ -11,6 +12,7 @@ export const NameSpace = {
   SORT: 'SORT',
   FILTER: 'FILTER',
   SEARCH: 'SEARCH',
+  CART: 'CART',
 };
 
 export default combineReducers({
@@ -19,6 +21,7 @@ export default combineReducers({
   [NameSpace.SORT]: sort,
   [NameSpace.FILTER]: filter,
   [NameSpace.SEARCH]: search,
+  [NameSpace.CART]: cart,
 });
 
 

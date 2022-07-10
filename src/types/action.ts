@@ -85,3 +85,23 @@ export type searchGuitarsActionType = {
   type: typeof ActionType.SET_SEARCH_GUITARS,
   payload: Guitar[],
 };
+
+export type couponActionType = {
+  type: typeof ActionType.SET_COUPON,
+  payload: null | string,
+}
+
+export type cartGuitarsActionType = {
+  type: typeof ActionType.SET_CART_GUITARS,
+  payload: Guitar[],
+};
+
+export type countGuitarsActionType = {
+  type: typeof ActionType.SET_COUNT_GUITARS,
+  payload: number,
+};
+
+export type saleActionType = {
+  type: typeof ActionType.SET_SALE,
+  payload: number,
+};

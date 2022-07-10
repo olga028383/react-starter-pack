@@ -1,6 +1,7 @@
 export const ApiRoute = {
   Guitars: '/guitars',
   Comments: 'comments',
+  Coupons: '/coupons',
 };
 
 export const AppRoute = {
@@ -9,6 +10,7 @@ export const AppRoute = {
   CATALOG_PAGE: '/catalog/page/:id',
   CATALOG_DETAIL: '/product/:id',
   CATALOG_DETAIL_TAB: '/product/:id/:tab',
+  CART: '/cart',
   ROOT: '/',
 };
 
@@ -59,7 +61,9 @@ export enum LoadStatus {
 
 export enum Message {
   Catalog = 'Каталог',
+  Cart = 'Корзина',
   NotGuitars = 'Нет гитар',
+  CartEmpty = 'Пока что в корзине ничего нет'
 }
 
 export const DEFAULT_DATA_STRINGS = {

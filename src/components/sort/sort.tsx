@@ -27,7 +27,7 @@ const mapStateToProps = (state: State) => ({
 
 const getActiveClass = (param: string | undefined, value: string, activeClass: string): string => param === value ? activeClass : '';
 
-type SortType = {
+type Props = {
   onSetSort?: (sort: string) => void,
   onSetOrder?: (order: string) => void,
   onFetchGuitars?: () => void,
@@ -35,7 +35,7 @@ type SortType = {
   order?: string,
 }
 
-function Sort({sort, order, onSetSort, onSetOrder, onFetchGuitars}: SortType): JSX.Element {
+function Sort({sort, order, onSetSort, onSetOrder, onFetchGuitars}: Props): JSX.Element {
   const handleButtonClickSort = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     const target = evt.target as HTMLElement;

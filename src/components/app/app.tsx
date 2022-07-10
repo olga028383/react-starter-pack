@@ -11,6 +11,7 @@ import {getServerError} from '../../store/application/selectors';
 import GuitarDetail from '../guitar-detail/guitar-detail';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import Cart from '../cart/cart';
 
 const mapStateToProps = (state: State) => ({
   serverError: getServerError(state),
@@ -42,6 +43,9 @@ function App({serverError}: appActionType): JSX.Element {
             </Route>
             <Route exact path={[AppRoute.CATALOG_DETAIL, AppRoute.CATALOG_DETAIL_TAB]}>
               <GuitarDetail/>
+            </Route>
+            <Route exact path={AppRoute.CART}>
+              <Cart/>
             </Route>
             <Route>
               <NotFound/>

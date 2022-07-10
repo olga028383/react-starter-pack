@@ -2,8 +2,9 @@ import React from 'react';
 import './header.css';
 import Logo from '../logo/logo';
 import Search from '../search/search';
-import {Link, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {AppRoute} from '../../constants/constants';
+import CartLine from './cart-line/cart-line';
 
 function Header(): JSX.Element {
   return (
@@ -44,12 +45,7 @@ function Header(): JSX.Element {
 
         <Search/>
 
-        <Link className="header__cart-link" to="#" aria-label="Корзина">
-          <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
-            <use xlinkHref="#icon-basket"></use>
-          </svg>
-          <span className="visually-hidden">Перейти в корзину</span><span className="header__cart-count">2</span>
-        </Link>
+        <CartLine/>
       </div>
     </header>
   );

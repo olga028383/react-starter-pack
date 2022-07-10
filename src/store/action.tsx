@@ -1,12 +1,15 @@
 import {Guitar} from '../types/data';
 import {
-  apiActionType, clearFilterActionType, currentPageActionType, guitarsActionType, loadDataActionType,
+  apiActionType, cartGuitarsActionType, clearFilterActionType, countGuitarsActionType, couponActionType,
+  currentPageActionType,
+  guitarsActionType,
+  loadDataActionType,
   numberStringsActionType,
   orderActionType,
   priceFilterMaxActionType,
   priceFilterMinActionType,
   priceInitMaxActionType,
-  priceInitMinActionType, searchGuitarsActionType, searchWordActionType,
+  priceInitMinActionType, saleActionType, searchGuitarsActionType, searchWordActionType,
   serverErrorActionType, sortActionType,
   totalPagesActionType, typeActionType
 } from '../types/action';
@@ -29,8 +32,12 @@ export const ActionType = {
   SET_NUMBER_STRINGS: 'filter/setNumberStrings',
   CLEAR_FILTER: 'filter/clearFilter',
   SET_SEARCH_WORD: 'search/setSearchWord',
-  SET_SEARCH_GUITARS: 'search/setSearchGuitars',
+  SET_SEARCH_GUITARS: 'search/setGuitars',
   CLEAR_SEARCH_GUITARS: 'search/clearSearchGuitars',
+  SET_COUPON: 'search/setCoupon',
+  SET_CART_GUITARS: 'cart/setGuitars',
+  SET_COUNT_GUITARS: 'cart/setCountGuitars',
+  SET_SALE: 'cart/setSale',
 };
 
 export const loadGuitars = (guitars: Guitar[]): guitarsActionType => ({
@@ -117,6 +124,26 @@ export const setSearchGuitars = (guitars: Guitar[]): searchGuitarsActionType => 
   payload: guitars,
 });
 
-export const clearSearchGuitars = ()=> ({
+export const clearSearchGuitars = () => ({
   type: ActionType.CLEAR_SEARCH_GUITARS,
+});
+
+export const setCoupon = (coupon: null | string): couponActionType => ({
+  type: ActionType.SET_COUPON,
+  payload: coupon,
+});
+
+export const setCartGuitars = (guitars: Guitar[]): cartGuitarsActionType => ({
+  type: ActionType.SET_CART_GUITARS,
+  payload: guitars,
+});
+
+export const setCountGuitars = (countGuitars: number): countGuitarsActionType => ({
+  type: ActionType.SET_COUNT_GUITARS,
+  payload: countGuitars,
+});
+
+export const setSale = (sale: number): saleActionType => ({
+  type: ActionType.SET_SALE,
+  payload: sale,
 });
