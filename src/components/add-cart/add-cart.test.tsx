@@ -6,8 +6,9 @@ import userEvent from '@testing-library/user-event';
 import {render, screen} from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import {FakeStore, Guitar, GuitarCart} from '../../mock/test';
-import {AddCart} from './add-cart';
+import AddCart from './add-cart';
 import {setCartGuitars, setCountGuitars, ActionType} from '../../store/action';
+import Modal from '../modal/modal';
 
 jest.mock('../../store/action');
 
@@ -33,7 +34,7 @@ describe('Component: AddCart', () => {
     expect(screen.getByText(/Честер Bass/i)).toBeInTheDocument();
   });
 
-  it('should call onClick callbacks', async () => {
+  it('should call onClick callbacks', () => {
     const history = createMemoryHistory();
     const createFakeStore = configureStore();
     const store = createFakeStore(FakeStore);
@@ -51,7 +52,9 @@ describe('Component: AddCart', () => {
     const fakeApp = (
       <Provider store={store}>
         <Router history={history}>
-          <AddCart guitar={Guitar} setModalSuccessActive={jest.fn()}/>
+          <Modal active={true} setActive={jest.fn()} additionalClass="modal-cart--add">
+            <AddCart guitar={Guitar} setModalSuccessActive={jest.fn()}/>
+          </Modal>
         </Router>
       </Provider>
     );
@@ -59,7 +62,7 @@ describe('Component: AddCart', () => {
     render(fakeApp);
 
     userEvent.click(screen.getByText(/Добавить в корзину/i));
-    //expect(setCartGuitars).toBeCalled();
-    //expect(setCountGuitars).toBeCalled();
+    expect(setCartGuitars).toBeCalled();
+    expect(setCountGuitars).toBeCalled();
   });
 });

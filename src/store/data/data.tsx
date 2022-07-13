@@ -1,6 +1,10 @@
 import {ActionType} from '../action';
 import {dataState} from '../../types/state';
 import {LoadStatus} from '../../constants/constants';
+import {
+  guitarsActionType, loadDataActionType, priceInitMaxActionType,
+  priceInitMinActionType
+} from '../../types/action';
 
 const initialState: dataState = {
   guitars: [],
@@ -9,7 +13,9 @@ const initialState: dataState = {
   loadData: LoadStatus.INIT,
 };
 
-const data = (state = initialState, action: any): dataState => {
+type actionProp = loadDataActionType | guitarsActionType | priceInitMaxActionType | priceInitMinActionType;
+
+const data = (state = initialState, action: actionProp) => {
   switch (action.type) {
     case ActionType.LOAD_GUITARS:
       return {

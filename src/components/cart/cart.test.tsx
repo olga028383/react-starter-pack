@@ -5,7 +5,6 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {FakeStore,Guitar} from '../../mock/test';
-import userEvent from '@testing-library/user-event';
 import Cart from './cart';
 
 describe('Component: Cart', () => {

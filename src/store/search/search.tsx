@@ -1,12 +1,15 @@
 import {ActionType} from '../action';
 import {searchState} from '../../types/state';
+import {clearSearchActionType, searchGuitarsActionType, searchWordActionType} from '../../types/action';
 
 const initialState: searchState = {
   searchWord: '',
   guitars: [],
 };
 
-const search = (state = initialState, action: any): searchState => {
+type actionProp = searchWordActionType | searchGuitarsActionType | clearSearchActionType;
+
+const search = (state = initialState, action: actionProp) => {
   switch (action.type) {
     case ActionType.SET_SEARCH_WORD:
       return {

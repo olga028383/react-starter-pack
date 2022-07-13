@@ -1,12 +1,15 @@
 import {ActionType} from '../action';
 import {sortState} from '../../types/state';
+import {orderActionType, sortActionType} from '../../types/action';
 
 const initialState: sortState = {
   sort: '',
   order: '',
 };
 
-const sort = (state = initialState, action: any): sortState => {
+type actionProp = sortActionType | orderActionType;
+
+const sort = (state = initialState, action: actionProp): sortState => {
   switch (action.type) {
     case ActionType.SET_SORT:
       return {

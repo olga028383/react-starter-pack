@@ -12,7 +12,6 @@ import {AppDispatch, State} from '../../../types/state';
 import {setCartGuitars, setCountGuitars} from '../../../store/action';
 import Modal from '../../modal/modal';
 import DeleteFromCart from '../../delete-from-cart/delete-from-cart';
-import {async} from "q";
 
 const CountGuitar = {
   Max: 99,
@@ -60,7 +59,6 @@ function CartItem({guitar, guitars = [], onSetGuitars}: Props): JSX.Element {
 
     if(currentCount === 0 ){
       setModalActive(true);
-      //onSetGuitars(changeCountProductInCart(guitars, guitar, 1));
     }
   };
 
@@ -101,11 +99,6 @@ function CartItem({guitar, guitars = [], onSetGuitars}: Props): JSX.Element {
   };
 
   const handleInputBlur = () => {
-    if(count === 0) {
-      setGuitars(0);
-      return;
-    }
-
     setGuitars(count);
   };
 
@@ -138,8 +131,8 @@ function CartItem({guitar, guitars = [], onSetGuitars}: Props): JSX.Element {
       </div>
       <div className="cart-item__price-total">{formatPrice(priceTotal)}</div>
 
-      <Modal active={modalActive} setActive={setModalActive} additionalClass="modal-cart--delete">
-        <DeleteFromCart guitar={guitar as Guitar} onButtonClick={onDeleteClick} setActive={() => setModalActive(false)}/>
+      <Modal active={modalActive} setActive={(isActive) => {setModalActive(isActive); setCount(priceTotal/price);}} additionalClass="modal-cart--delete">
+        <DeleteFromCart guitar={guitar as Guitar} onButtonClick={onDeleteClick} setActive={() => {setModalActive(false); setCount(priceTotal/price);}}/>
       </Modal>
     </div>
   );

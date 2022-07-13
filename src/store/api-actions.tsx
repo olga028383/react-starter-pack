@@ -34,8 +34,8 @@ export const fetchGuitars = (page: number, callback?: any): any => (dispatch: Ap
     .catch((err) => dispatch(setServerError(err.message)));
 };
 
-export const searchGuitars = (name: string): any => (dispatch: AppDispatch, getState: any, api: AxiosInstance) => {
-  return api.get(`${ApiRoute.Guitars}?name_like=${name}`)
+export const searchGuitars = (name: string): any => (dispatch: AppDispatch, getState: any, api: AxiosInstance) => (
+  api.get(`${ApiRoute.Guitars}?name_like=${name}`)
     .then(({data}) => {
       if (getState().SEARCH.searchKey === '') {
         dispatch(setSearchGuitars([]));
@@ -43,8 +43,8 @@ export const searchGuitars = (name: string): any => (dispatch: AppDispatch, getS
       }
       dispatch(setSearchGuitars(data));
     })
-    .catch((err) => dispatch(setServerError(err.message)));
-};
+    .catch((err) => dispatch(setServerError(err.message)))
+);
 
 export const fetchPrice = (isPriceMin: boolean): any => (dispatch: AppDispatch, getState: any, api: AxiosInstance) => {
   const order = isPriceMin ? OrderName.Asc : OrderName.Desc;

@@ -69,6 +69,7 @@ export type numberStringsActionType = {
 
 export type clearFilterActionType = {
   type: typeof ActionType.CLEAR_FILTER,
+  payload?: null,
 }
 
 export type loadDataActionType = {
@@ -104,4 +105,9 @@ export type countGuitarsActionType = {
 export type saleActionType = {
   type: typeof ActionType.SET_SALE,
   payload: number,
+};
+
+export type clearSearchActionType = {
+  type: typeof ActionType.CLEAR_SEARCH_GUITARS,
+  payload?: null,
 };

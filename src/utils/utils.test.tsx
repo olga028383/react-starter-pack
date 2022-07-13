@@ -55,7 +55,7 @@ describe('tests utility functions', () => {
   it('should get parameters from the state', () => {
     expect(JSON.stringify(getQueryParam({
       sort: 'asc',
-      order: ''
+      order: '',
     }, QueryParamsTypeSort))).toBe(JSON.stringify({_sort: 'asc'}));
   });
 
@@ -66,7 +66,7 @@ describe('tests utility functions', () => {
       stringCount: 'numberStrings',
       type: 'types',
       _sort: 'sort',
-      _order: 'order'
+      _order: 'order',
     }));
   });
 

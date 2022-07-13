@@ -1,5 +1,10 @@
 import {ActionType} from '../action';
 import {filterState} from '../../types/state';
+import {
+  clearFilterActionType,
+  numberStringsActionType, priceFilterMaxActionType, priceFilterMinActionType,
+  typeActionType
+} from '../../types/action';
 
 const initialState: filterState = {
   priceMin: 0,
@@ -8,7 +13,9 @@ const initialState: filterState = {
   numberStrings: [],
 };
 
-const filter = (state = initialState, action: any): filterState => {
+type actionProp = priceFilterMinActionType | priceFilterMaxActionType | typeActionType | numberStringsActionType | clearFilterActionType;
+
+const filter = (state = initialState, action: actionProp) => {
   switch (action.type) {
     case ActionType.SET_PRICE_MIN:
       return {

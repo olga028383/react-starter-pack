@@ -25,7 +25,7 @@ type Props = {
   guitar: Guitar,
   cartGuitars?: Guitar[],
   setModalSuccessActive: () => void,
-  onSetGuitars?: (guitar: Guitar[]) => void,
+  onSetGuitars?: (guitars: Guitar[]) => void,
 }
 
 function AddCart({guitar, cartGuitars = [], setModalSuccessActive, onSetGuitars}: Props): JSX.Element {

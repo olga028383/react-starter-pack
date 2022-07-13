@@ -1,5 +1,6 @@
 import {ActionType} from '../action';
 import {cartState} from '../../types/state';
+import {cartGuitarsActionType, countGuitarsActionType, couponActionType, saleActionType} from '../../types/action';
 
 const initialState: cartState = {
   sale: 0,
@@ -8,7 +9,9 @@ const initialState: cartState = {
   guitars: [],
 };
 
-const cart = (state = initialState, action: any): cartState => {
+type actionProp = couponActionType | cartGuitarsActionType | countGuitarsActionType | saleActionType;
+
+const cart = (state = initialState, action: actionProp) => {
   switch (action.type) {
     case ActionType.SET_COUPON:
       return {

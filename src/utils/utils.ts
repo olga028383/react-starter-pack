@@ -1,6 +1,9 @@
 import queryString from 'query-string';
 import browserHistory from '../browser-history';
-import {LANGUAGE, SHOW_PAGE, SortKey, FilterKey, SortName, OrderName, STRINGS_DATA} from '../constants/constants';
+import {
+  LANGUAGE, SHOW_PAGE, SortKey, FilterKey, SortName, OrderName, STRINGS_DATA,
+  TYPE_DATA
+} from '../constants/constants';
 import {filterState, sortState} from '../types/state';
 import {QueryParamsTypeFilter, QueryParamsTypeSort} from '../constants/adapters';
 import {setNumberStrings, setOrder, setPriceMax, setPriceMin, setSort, setType} from '../store/action';
@@ -76,12 +79,10 @@ export const checkOrder = (param: any) => param === OrderName.Asc || param === O
 export const checkPriceParam = (param: any) => isNaN(Number(param));
 
 export const checkType = (param: any) => {
-  const TYPE_DATA = ['acoustic', 'electric', 'ukulele'];
-
   if (typeof param === 'string' && TYPE_DATA.includes(param)) {
     return true;
   }
-  if(typeof param === 'array') {
+  if(Array.isArray(param)) {
     const data = param.filter((value: any) => TYPE_DATA.includes(value));
     return data.length === param.length;
   }
@@ -93,7 +94,7 @@ export const checkNumberStrings = (param: any) => {
   if (typeof Number(param) === 'number' && STRINGS_DATA.includes(Number(param))) {
     return true;
   }
-  if(typeof param === 'array') {
+  if(Array.isArray(param)) {
     const data = param.filter((value: any) => STRINGS_DATA.includes(Number(value)));
     return data.length === param.length;
   }

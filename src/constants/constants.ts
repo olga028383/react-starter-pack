@@ -71,3 +71,5 @@ export const DEFAULT_DATA_STRINGS = {
   'ukulele': [4],
   'acoustic': [6, 7, 12],
 };
+
+export const TYPE_DATA = ['acoustic', 'electric', 'ukulele'];

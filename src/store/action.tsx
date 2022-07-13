@@ -1,6 +1,7 @@
 import {Guitar} from '../types/data';
 import {
-  apiActionType, cartGuitarsActionType, clearFilterActionType, countGuitarsActionType, couponActionType,
+  apiActionType, cartGuitarsActionType, clearFilterActionType, clearSearchActionType, countGuitarsActionType,
+  couponActionType,
   currentPageActionType,
   guitarsActionType,
   loadDataActionType,
@@ -124,7 +125,7 @@ export const setSearchGuitars = (guitars: Guitar[]): searchGuitarsActionType => 
   payload: guitars,
 });
 
-export const clearSearchGuitars = () => ({
+export const clearSearchGuitars = (): clearSearchActionType => ({
   type: ActionType.CLEAR_SEARCH_GUITARS,
 });
 

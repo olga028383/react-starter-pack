@@ -68,43 +68,10 @@ describe('Component: CartItem', () => {
 
     render(fakeApp);
 
-    // userEvent.type(screen.getByTestId('input'), '2');
-    // userEvent.click(document.body);
-    // expect(setCartGuitars).toBeCalled();
-    // expect(setCountGuitars).toBeCalled();
-    // expect(screen.getByText(/35 000/i)).toBeInTheDocument();
-    //
-    // userEvent.click(screen.getByTestId('plus'));
-    // expect(setCartGuitars).toBeCalled();
-    // expect(setCountGuitars).toBeCalled();
-    // expect(screen.getByText(/52 500/i)).toBeInTheDocument();
-    //
-    // userEvent.click(screen.getByTestId('minus'));
-    // expect(setCartGuitars).toBeCalled();
-    // expect(setCountGuitars).toBeCalled();
-    // expect(screen.getByText(/35 000/i)).toBeInTheDocument();
-    //
-    // userEvent.type(screen.getByTestId('input'), '99');
-    // userEvent.click(document.body);
-    // expect(setCartGuitars).toBeCalled();
-    // expect(setCountGuitars).toBeCalled();
-    // expect(screen.getByText(/1 732,500 ₽/i)).toBeInTheDocument();
-    //
-    // userEvent.type(screen.getByTestId('input'), '1000');
-    // userEvent.click(document.body);
-    // expect(setCartGuitars).toBeCalled();
-    // expect(setCountGuitars).toBeCalled();
-    // expect(screen.getByText(/1 732,500 ₽/i)).toBeInTheDocument();
-    //
-    // userEvent.type(screen.getByTestId('input'), '1');
-    // userEvent.click(document.body);
-    // expect(setCartGuitars).toBeCalled();
-    // expect(setCountGuitars).toBeCalled();
-    // expect(screen.getByText(/17 500/i)).toBeInTheDocument();
-    //
-    // userEvent.click(screen.getByTestId('remove'));
-    // expect(setCartGuitars).toBeCalled();
-    // expect(setCountGuitars).toBeCalled();
-    // expect(screen.getByText(/Удалить товар/i)).toBeInTheDocument();
+    userEvent.type(screen.getByTestId('input'), '2');
+    userEvent.click(document.body);
+    expect(setCartGuitars).toBeCalled();
+    expect(setCountGuitars).toBeCalled();
+
   });
 });
