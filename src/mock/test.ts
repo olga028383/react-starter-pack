@@ -31,12 +31,26 @@ export const Guitar = {
   comments: [ReviewTest],
 };
 
+export const GuitarCart = {
+  id: 1,
+  name: 'Честер Bass',
+  vendorCode: 'SO757575',
+  type: 'electric',
+  description: 'Замечательный малобюджетный вариант, созданный для новичков, которые отдают предпочтение мелодичным стилям. Прекрасно звучат блюз и баллады, исполненные на этой гитаре. Акустические свойства весьма высоки, в отличие от ее стоимости.',
+  previewImg: 'img/guitar-1.jpg',
+  stringCount: 7,
+  rating: 4,
+  price: 17500,
+  comments: [ReviewTest],
+  countInCart: 1,
+};
 export const FakeStore = {
   DATA: {loadData: 'SUCCESS', guitars: [Guitar, Guitar, Guitar], priceMin: 300, priceMax: 35000},
   APPLICATION: {serverError: '', currentPage: 1, pagesTotal: 3, api: jest.fn()},
   SORT: {sort: '', order: ''},
   FILTER: {types: ['electric'], numberStrings: [4], priceMin: 0, priceMax: 0},
   SEARCH: {searchWord: 'Че', guitars: [Guitar, Guitar, Guitar]},
+  CART: {sale: 0, coupon: null, countGuitars: 0, guitars: []},
 };
 
 

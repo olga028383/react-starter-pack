@@ -74,7 +74,7 @@ function Coupon({onSetSale, percent = 0, couponSale = null}: Props): JSX.Element
       <form className="coupon__form" id="coupon-form" method="post" action="/" onSubmit={handleFormSubmit}>
         <div className="form-input coupon__input">
           <label className="visually-hidden">Промокод</label>
-          <input type="text" placeholder="Введите промокод" id="coupon" name="coupon" value={coupon} onChange={handleInputChange}/>
+          <input type="text" placeholder="Введите промокод" data-testid="coupon" id="coupon" name="coupon" value={coupon} onChange={handleInputChange}/>
           {status === ValidateStatus.SUCCESS &&
           <p className="form-input__message form-input__message--success">Промокод принят</p>}
           {status === ValidateStatus.FAIL &&

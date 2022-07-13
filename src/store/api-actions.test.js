@@ -5,7 +5,8 @@ import {
   fetchGuitar,
   fetchComments,
   sendComment,
-  fetchPrice
+  searchGuitars,
+  fetchPrice, sendCoupon
 } from './api-actions';
 import {createApi} from '../api';
 import {ApiRoute} from '../constants/constants';
@@ -126,5 +127,41 @@ describe('Async operations', () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
       });
+  });
+
+  it('should make a correct API call to GET search guitars', () => {
+    const apiMock = new MockAdapter(api);
+    const mockStore = configureStore();
+    const store = mockStore({SEARCH: {searchWord: 'Че', guitars: [Guitar, Guitar, Guitar]}});
+    store.getState = () => mockStore;
+    const dispatch = jest.fn();
+    const searchGuitarsLoader = searchGuitars('Че');
+
+    apiMock
+      .onGet(`${ApiRoute.Guitars}?name_like=Че`)
+      .reply(200, [Guitar]);
+
+    searchGuitarsLoader(dispatch, store.getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+      })
+  });
+
+  it('should make a correct API call to POST /coupon', () => {
+    const apiMock = new MockAdapter(api);
+    const mockStore = configureStore();
+    const store = mockStore({CART: {sale: 0, coupon: null, countGuitars: 0, guitars: []}});
+    store.getState = () => mockStore;
+    const dispatch = jest.fn();
+    const sendCouponMock = sendCoupon('333');
+
+    apiMock
+      .onPost(ApiRoute.Coupons)
+      .reply(200, '15');
+
+    sendCouponMock(dispatch, store.getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+      })
   });
 });

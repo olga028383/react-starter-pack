@@ -81,16 +81,24 @@ export const checkType = (param: any) => {
   if (typeof param === 'string' && TYPE_DATA.includes(param)) {
     return true;
   }
-  const data = param.filter((value: any) => TYPE_DATA.includes(value));
-  return data.length === param.length;
+  if(typeof param === 'array') {
+    const data = param.filter((value: any) => TYPE_DATA.includes(value));
+    return data.length === param.length;
+  }
+
+  return false;
 };
 
 export const checkNumberStrings = (param: any) => {
   if (typeof Number(param) === 'number' && STRINGS_DATA.includes(Number(param))) {
     return true;
   }
-  const data = param.filter((value: any) => STRINGS_DATA.includes(Number(value)));
-  return data.length === param.length;
+  if(typeof param === 'array') {
+    const data = param.filter((value: any) => STRINGS_DATA.includes(Number(value)));
+    return data.length === param.length;
+  }
+
+  return false;
 };
 
 export const getLengthObject = (data: any): number => Array.from(Object.keys(data)).length;

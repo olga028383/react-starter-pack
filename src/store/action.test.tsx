@@ -5,7 +5,7 @@ import {
   setTotalPages,
   setServerError,
   ActionType, initPriceMin, initPriceMax, setPriceMin, setPriceMax, setOrder, setSort, setNumberStrings, setType,
-  loadData, clearFilter
+  loadData, clearFilter, setSearchWord, setSearchGuitars, setCoupon, setCartGuitars, setCountGuitars, setSale
 } from './action';
 import {Guitar} from '../mock/test';
 import {createApi} from '../api';
@@ -159,5 +159,65 @@ describe('Actions', () => {
     };
 
     expect(loadData('test')).toEqual(expectedAction);
+  });
+
+  it('Action creator to add search word ', () => {
+
+    const expectedAction = {
+      type: ActionType.SET_SEARCH_WORD,
+      payload: 'test',
+    };
+
+    expect(setSearchWord('test')).toEqual(expectedAction);
+  });
+
+  it('Action creator to add search guitars ', () => {
+
+    const expectedAction = {
+      type: ActionType.SET_SEARCH_GUITARS,
+      payload: [Guitar],
+    };
+
+    expect(setSearchGuitars([Guitar])).toEqual(expectedAction);
+  });
+
+  it('Action creator to add coupon ', () => {
+
+    const expectedAction = {
+      type: ActionType.SET_COUPON,
+      payload: '33',
+    };
+
+    expect(setCoupon('33')).toEqual(expectedAction);
+  });
+
+  it('Action creator to add cart guitars ', () => {
+
+    const expectedAction = {
+      type: ActionType.SET_CART_GUITARS,
+      payload: [Guitar],
+    };
+
+    expect(setCartGuitars([Guitar])).toEqual(expectedAction);
+  });
+
+  it('Action creator to add count guitars', () => {
+
+    const expectedAction = {
+      type: ActionType.SET_COUNT_GUITARS,
+      payload: 5,
+    };
+
+    expect(setCountGuitars(5)).toEqual(expectedAction);
+  });
+
+  it('Action creator to add sale', () => {
+
+    const expectedAction = {
+      type: ActionType.SET_SALE,
+      payload: 5,
+    };
+
+    expect(setSale(5)).toEqual(expectedAction);
   });
 });

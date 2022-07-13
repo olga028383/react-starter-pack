@@ -35,7 +35,7 @@ export const fetchGuitars = (page: number, callback?: any): any => (dispatch: Ap
 };
 
 export const searchGuitars = (name: string): any => (dispatch: AppDispatch, getState: any, api: AxiosInstance) => {
-  api.get(`${ApiRoute.Guitars}?name_like=${name}`)
+  return api.get(`${ApiRoute.Guitars}?name_like=${name}`)
     .then(({data}) => {
       if (getState().SEARCH.searchKey === '') {
         dispatch(setSearchGuitars([]));

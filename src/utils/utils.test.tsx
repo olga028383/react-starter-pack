@@ -7,9 +7,10 @@ import {
   addElementFilter,
   removeElementFilter,
   getQueryParam,
-  swapParam
+  swapParam, checkPrice, getPriceParam, checkSort, checkOrder, checkPriceParam, checkType, checkNumberStrings,
+  getLengthObject, changeCountProductInCart, checkGuitarInCart, getCountInCart, getSumInCart, getSale
 } from './utils';
-import {Guitar} from '../mock/test';
+import {Guitar, GuitarCart} from '../mock/test';
 import {GuitarType, QueryParamsTypeSort} from '../constants/adapters';
 
 describe('tests utility functions', () => {
@@ -52,11 +53,91 @@ describe('tests utility functions', () => {
   });
 
   it('should get parameters from the state', () => {
-    expect(JSON.stringify(getQueryParam ({sort: 'asc', order: ''}, QueryParamsTypeSort))).toBe(JSON.stringify({_sort: 'asc'}));
+    expect(JSON.stringify(getQueryParam({
+      sort: 'asc',
+      order: ''
+    }, QueryParamsTypeSort))).toBe(JSON.stringify({_sort: 'asc'}));
   });
 
   it('should swap key and value', () => {
-    expect(JSON.stringify(swapParam())).toBe(JSON.stringify({'price_gte': 'priceMin', 'price_lte': 'priceMax', stringCount: 'numberStrings', type: 'types', _sort: 'sort', _order: 'order'}));
+    expect(JSON.stringify(swapParam())).toBe(JSON.stringify({
+      'price_gte': 'priceMin',
+      'price_lte': 'priceMax',
+      stringCount: 'numberStrings',
+      type: 'types',
+      _sort: 'sort',
+      _order: 'order'
+    }));
   });
 
+  it('method checkPrice', () => {
+    expect(checkPrice(25, 20, 30)).toBe(true);
+    expect(checkPrice(10, 10, 30)).toBe(false);
+    expect(checkPrice(35, 10, 30)).toBe(false);
+  });
+
+  it('method getPriceParam', () => {
+    expect(getPriceParam('test')).toBe(null);
+  });
+
+  it('method checkSort', () => {
+    expect(checkSort('test')).toBe(false);
+    expect(checkSort('price')).toBe(true);
+  });
+
+  it('method checkOrder', () => {
+    expect(checkOrder('test')).toBe(false);
+    expect(checkOrder('asc')).toBe(true);
+  });
+
+  it('method checkPriceParam', () => {
+    expect(checkPriceParam('test')).toBe(true);
+    expect(checkPriceParam('22')).toBe(false);
+    expect(checkPriceParam(100)).toBe(false);
+  });
+
+  it('method checkType', () => {
+    expect(checkType('test')).toBe(false);
+    expect(checkType('acoustic')).toBe(true);
+  });
+
+  it('method checkNumberStrings', () => {
+    expect(checkNumberStrings('test')).toBe(false);
+    expect(checkNumberStrings('33')).toBe(false);
+    expect(checkNumberStrings(25)).toBe(false);
+    expect(checkNumberStrings(7)).toBe(true);
+  });
+
+  it('method getLengthObject', () => {
+    expect(getLengthObject('test')).toBe(4);
+    expect(getLengthObject({'test': 1})).toBe(1);
+  });
+
+  it('method changeCountProductInCart', () => {
+    expect(JSON.stringify(changeCountProductInCart([Guitar], GuitarCart, -1))).toBe(JSON.stringify([]));
+    expect(JSON.stringify(changeCountProductInCart([Guitar], GuitarCart, 10)[0].countInCart)).toBe('10');
+    expect(JSON.stringify(changeCountProductInCart([GuitarCart], GuitarCart, 0)[0].countInCart)).toBe('2');
+    expect(JSON.stringify(changeCountProductInCart([GuitarCart], GuitarCart, 1)[0].countInCart)).toBe('1');
+  });
+
+  it('method checkGuitarInCart', () => {
+    expect(checkGuitarInCart([Guitar], Guitar)).toBe(true);
+    expect(checkGuitarInCart([], Guitar)).toBe(false);
+  });
+
+  it('method getCountInCart', () => {
+    expect(getCountInCart([GuitarCart, GuitarCart])).toBe(2);
+    expect(getCountInCart([])).toBe(0);
+  });
+
+  it('method getSumInCart', () => {
+    expect(getSumInCart([GuitarCart, GuitarCart])).toBe(35000);
+    expect(getSumInCart([])).toBe(0);
+  });
+
+  it('method getSale', () => {
+    expect(getSale(10, 100)).toBe(10);
+    expect(getSale(0, 100)).toBe(0);
+    expect(getSale(10, 0)).toBe(0);
+  });
 });
