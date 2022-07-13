@@ -8,7 +8,6 @@ import configureStore from 'redux-mock-store';
 import {FakeStore, Guitar, GuitarCart} from '../../mock/test';
 import AddCart from './add-cart';
 import {setCartGuitars, setCountGuitars, ActionType} from '../../store/action';
-import Modal from '../modal/modal';
 
 jest.mock('../../store/action');
 
@@ -52,9 +51,7 @@ describe('Component: AddCart', () => {
     const fakeApp = (
       <Provider store={store}>
         <Router history={history}>
-          <Modal active={true} setActive={jest.fn()} additionalClass="modal-cart--add">
-            <AddCart guitar={Guitar} setModalSuccessActive={jest.fn()}/>
-          </Modal>
+          <AddCart guitar={Guitar} setModalSuccessActive={jest.fn()}/>
         </Router>
       </Provider>
     );
