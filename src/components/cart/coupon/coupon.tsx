@@ -39,7 +39,7 @@ function Coupon({onSetSale, percent = 0, couponSale = null}: Props): JSX.Element
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const target = evt.target;
-    setCoupon(target.value);
+    setCoupon(target.value.replace(/\s/g, ''));
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
